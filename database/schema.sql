@@ -1,0 +1,2 @@
+-- schema.sql
+-- SQL schema for the database
