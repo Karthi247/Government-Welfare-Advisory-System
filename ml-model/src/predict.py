@@ -1,2 +1,0 @@
-# predict.py
-# Prediction script

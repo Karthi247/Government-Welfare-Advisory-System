@@ -1,5 +1,8 @@
 package com.project.welfare.Entity; 
 
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +27,19 @@ public class EligibilityHistory {
     private String is_minority;
     private double eligibility_score;
     private String eligibility_status;
+
+    @Column(name = "checked_at")
+    private LocalDateTime checkedAt;
+
+    public LocalDateTime getCheckedAt() {
+        return checkedAt;
+    }
+
+    public void setCheckedAt(LocalDateTime checkedAt) {
+        this.checkedAt = checkedAt;
+    }
+
+    
     public int getId() {
         return id;
     }
