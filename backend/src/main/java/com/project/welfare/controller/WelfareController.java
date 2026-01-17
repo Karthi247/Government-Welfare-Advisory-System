@@ -1,15 +1,20 @@
 package com.project.welfare.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.project.welfare.Entity.EligibilityHistory;
+import com.project.welfare.dto.SchemeRecommendationDto;
 import com.project.welfare.dto.WelfareRequestDto;
 import com.project.welfare.dto.WelfareResponseDto;
 import com.project.welfare.repository.EligibilityHistoryRepository;
 import com.project.welfare.service.MlService;
+import com.project.welfare.service.SchemeRecommendationService;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/welfare")
 public class WelfareController {
@@ -20,6 +25,8 @@ public class WelfareController {
     @Autowired
     private EligibilityHistoryRepository eligibilityHistoryRepository;
 
+    @Autowired
+    private SchemeRecommendationService schemeRecommendationService;
 
     @PostMapping("/check-eligibility")
     public ResponseEntity<WelfareResponseDto> checkEligibility(
@@ -28,9 +35,9 @@ public class WelfareController {
         // 1. Call ML service
         double score = mlService.getEligibilityScore(request);
 
-        // 2. Decide status (BUSINESS LOGIC)
+        // 2. Decide eligibility status
         String status;
-        if (score >= 0.75) {
+        if (score >= 0.60) {
             status = "ELIGIBLE";
         } else if (score >= 0.50) {
             status = "PARTIALLY_ELIGIBLE";
@@ -38,7 +45,11 @@ public class WelfareController {
             status = "NOT_ELIGIBLE";
         }
 
-        // 3. SAVE TO DATABASE (THIS IS THE PART YOU ASKED ABOUT)
+        // 3. Get scheme recommendations (⭐ THIS IS NEW ⭐)
+        List<SchemeRecommendationDto> recommendedSchemes =
+                schemeRecommendationService.recommendSchemesWithReasons(request, status);
+
+        // 4. Save to DB
         EligibilityHistory history = new EligibilityHistory();
         history.setAge(request.getAge());
         history.setGender(request.getGender());
@@ -53,11 +64,20 @@ public class WelfareController {
 
         eligibilityHistoryRepository.save(history);
 
-        // 4. Return response to client
+        // 5. Return final response
         WelfareResponseDto response =
-                new WelfareResponseDto(score, status);
+                new WelfareResponseDto(score, status, recommendedSchemes);
 
         return ResponseEntity.ok(response);
+    }
+
+
+    @GetMapping("/history")
+    public ResponseEntity<?> getEligibilityHistory() {
+
+        return ResponseEntity.ok(
+            eligibilityHistoryRepository.findAllByOrderByCheckedAtDesc()
+        );
     }
 
 }

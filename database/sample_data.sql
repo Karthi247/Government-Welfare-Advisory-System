@@ -1,2 +1,0 @@
--- sample_data.sql
--- Sample data for the database
