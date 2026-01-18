@@ -1,0 +1,60 @@
+/* Government Theme */
+
+body {
+  background-color: #f4f6f8;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  color: #212529;
+}
+
+/* Override Bootstrap primary color */
+.btn-primary {
+  background-color: #0d3b66;
+  border-color: #0d3b66;
+}
+
+.btn-primary:hover {
+  background-color: #0b3257;
+  border-color: #0b3257;
+}
+
+.btn-outline-secondary {
+  color: #0d3b66;
+  border-color: #0d3b66;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #0d3b66;
+  color: #fff;
+}
+
+/* Card styling */
+.card {
+  border-radius: 12px;
+  border: none;
+}
+
+/* Heading style */
+.gov-title {
+  color: #0d3b66;
+}
+
+/* Accent text */
+.text-accent {
+  color: #2a9d8f;
+}
+
+.bg-gov {
+  background-color: #0d3b66;
+}
+
+.logo-circle {
+  width: 36px;
+  height: 36px;
+  background-color: #ffffff;
+  color: #0d3b66;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
