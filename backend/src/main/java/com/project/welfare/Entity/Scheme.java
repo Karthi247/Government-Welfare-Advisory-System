@@ -1,10 +1,6 @@
 package com.project.welfare.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "schemes")
@@ -14,60 +10,96 @@ public class Scheme {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String scheme_name;
-    private int min_age;
-    private double max_income;
+    @Column(name = "scheme_name")
+    private String schemeName;
+
+    @Column(name = "min_age")
+    private int minAge;
+
+    @Column(name = "max_income")
+    private double maxIncome;
+
     private String category;
+
     private String occupation;
-    private String disability_required;
-    private String minority_required;
+
+    private String description;
+
+    @OneToOne(mappedBy = "scheme", cascade = CascadeType.ALL)
+    private SchemeDetails schemeDetails;
+
+    public SchemeDetails getSchemeDetails() {
+        return schemeDetails;
+    }
+    public void setSchemeDetails(SchemeDetails schemeDetails) {
+        this.schemeDetails = schemeDetails;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    @Column(name = "disability_required")
+    private String disabilityRequired;
+
+    @Column(name = "minority_required")
+    private String minorityRequired;
+
+    // ✅ Getters & Setters
     public int getId() {
         return id;
     }
     public void setId(int id) {
         this.id = id;
     }
-    public String getScheme_name() {
-        return scheme_name;
+
+    public String getSchemeName() {
+        return schemeName;
     }
-    public void setScheme_name(String scheme_name) {
-        this.scheme_name = scheme_name;
+    public void setSchemeName(String schemeName) {
+        this.schemeName = schemeName;
     }
-    public int getMin_age() {
-        return min_age;
+
+    public int getMinAge() {
+        return minAge;
     }
-    public void setMin_age(int min_age) {
-        this.min_age = min_age;
+    public void setMinAge(int minAge) {
+        this.minAge = minAge;
     }
-    public double getMax_income() {
-        return max_income;
+
+    public double getMaxIncome() {
+        return maxIncome;
     }
-    public void setMax_income(double max_income) {
-        this.max_income = max_income;
+    public void setMaxIncome(double maxIncome) {
+        this.maxIncome = maxIncome;
     }
+
     public String getCategory() {
         return category;
     }
     public void setCategory(String category) {
         this.category = category;
     }
+
     public String getOccupation() {
         return occupation;
     }
     public void setOccupation(String occupation) {
         this.occupation = occupation;
     }
-    public String getDisability_required() {
-        return disability_required;
+
+    public String getDisabilityRequired() {
+        return disabilityRequired;
     }
-    public void setDisability_required(String disability_required) {
-        this.disability_required = disability_required;
-    }
-    public String getMinority_required() {
-        return minority_required;
-    }
-    public void setMinority_required(String minority_required) {
-        this.minority_required = minority_required;
+    public void setDisabilityRequired(String disabilityRequired) {
+        this.disabilityRequired = disabilityRequired;
     }
 
+    public String getMinorityRequired() {
+        return minorityRequired;
+    }
+    public void setMinorityRequired(String minorityRequired) {
+        this.minorityRequired = minorityRequired;
+    }
 }

@@ -30,51 +30,52 @@ public class SchemeRecommendationService {
 
     for (Scheme scheme : allSchemes) {
 
-        boolean ageMatch = user.getAge() >= scheme.getMin_age();
-        boolean incomeMatch = user.getAnnual_income() <= scheme.getMax_income();
+        boolean ageMatch = user.getAge() >= scheme.getMinAge();
+        boolean incomeMatch = user.getAnnual_income() <= scheme.getMaxIncome();
 
         boolean occupationMatch =
                 scheme.getOccupation().equalsIgnoreCase("ANY") ||
                 scheme.getOccupation().equalsIgnoreCase(user.getOccupation());
 
         boolean disabilityMatch =
-                scheme.getDisability_required().equalsIgnoreCase("ANY") ||
-                scheme.getDisability_required().equalsIgnoreCase(user.getDisability());
+                scheme.getDisabilityRequired().equalsIgnoreCase("ANY") ||
+                scheme.getDisabilityRequired().equalsIgnoreCase(user.getDisability());
 
         boolean minorityMatch =
-                scheme.getMinority_required().equalsIgnoreCase("ANY") ||
-                scheme.getMinority_required().equalsIgnoreCase(user.getIs_minority());
+                scheme.getMinorityRequired().equalsIgnoreCase("ANY") ||
+                scheme.getMinorityRequired().equalsIgnoreCase(user.getIs_minority());
 
         if (ageMatch && incomeMatch && occupationMatch && disabilityMatch && minorityMatch) {
 
             // 👉 BUILD HUMAN-READABLE REASON
             StringBuilder reason = new StringBuilder();
 
-            if (scheme.getMin_age() >= 60) {
-                reason.append("Applicant age is above ").append(scheme.getMin_age()).append(". ");
+            if (scheme.getMinAge() >= 60) {
+                reason.append("Applicant age is above ").append(scheme.getMinAge()).append(". ");
             }
 
             if (scheme.getOccupation().equalsIgnoreCase("Farmer")) {
                 reason.append("Applicant is a farmer. ");
             }
 
-            if (scheme.getMax_income() > 0) {
+            if (scheme.getMaxIncome() > 0) {
                 reason.append("Annual income is below ₹")
-                      .append((int) scheme.getMax_income())
+                      .append((int) scheme.getMaxIncome())
                       .append(". ");
             }
 
-            if (scheme.getDisability_required().equalsIgnoreCase("Yes")) {
+            if (scheme.getDisabilityRequired().equalsIgnoreCase("Yes")) {
                 reason.append("Applicant has a disability. ");
             }
 
-            if (scheme.getMinority_required().equalsIgnoreCase("Yes")) {
+            if (scheme.getMinorityRequired().equalsIgnoreCase("Yes")) {
                 reason.append("Applicant belongs to a minority group. ");
             }
 
             result.add(
                 new SchemeRecommendationDto(
-                    scheme.getScheme_name(),
+                    scheme.getId(), 
+                    scheme.getSchemeName(),
                     reason.toString().trim()
                 )
             );

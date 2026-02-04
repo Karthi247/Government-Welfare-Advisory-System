@@ -4,15 +4,25 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.welfare.Entity.EligibilityHistory;
+import java.time.LocalDateTime;
+import com.project.welfare.Entity.Scheme;
 import com.project.welfare.dto.SchemeRecommendationDto;
 import com.project.welfare.dto.WelfareRequestDto;
 import com.project.welfare.dto.WelfareResponseDto;
 import com.project.welfare.repository.EligibilityHistoryRepository;
 import com.project.welfare.service.MlService;
 import com.project.welfare.service.SchemeRecommendationService;
+import com.project.welfare.repository.SchemeRepository;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -21,6 +31,9 @@ public class WelfareController {
 
     @Autowired
     private MlService mlService;
+
+    @Autowired
+    private SchemeRepository schemeRepository;
 
     @Autowired
     private EligibilityHistoryRepository eligibilityHistoryRepository;
@@ -61,6 +74,8 @@ public class WelfareController {
         history.setIs_minority(request.getIs_minority());
         history.setEligibility_score(score);
         history.setEligibility_status(status);
+        history.setUserId(request.getUserId());
+        history.setCheckedAt(LocalDateTime.now());
 
         eligibilityHistoryRepository.save(history);
 
@@ -71,13 +86,34 @@ public class WelfareController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/recent")
+    public List<Scheme> getRecentSchemes() {
+        return schemeRepository.findTop2ByOrderByIdDesc();
+    }
+
+
 
     @GetMapping("/history")
-    public ResponseEntity<?> getEligibilityHistory() {
+    public ResponseEntity<?> getEligibilityHistory(@RequestParam(required = false) Integer userId) {
+        if (userId == null) {
+            return ResponseEntity.badRequest().body("userId is required");
+        }
 
         return ResponseEntity.ok(
-            eligibilityHistoryRepository.findAllByOrderByCheckedAtDesc()
+            eligibilityHistoryRepository.findAllByUserIdOrderByCheckedAtDesc(userId)
         );
     }
+
+    @GetMapping("/history/{userId}")
+    public ResponseEntity<?> getEligibilityHistoryUser(@PathVariable Integer userId) {
+        if (userId == null) {
+            return ResponseEntity.badRequest().body("userId is required");
+        }
+        
+        return ResponseEntity.ok(
+            eligibilityHistoryRepository.findAllByUserIdOrderByCheckedAtDesc(userId)
+        );
+    }
+
 
 }
