@@ -28,6 +28,9 @@ public class EligibilityHistory {
     private double eligibility_score;
     private String eligibility_status;
 
+    @Column(name = "user_id")
+    private Integer userId;
+
     @Column(name = "checked_at")
     private LocalDateTime checkedAt;
 
@@ -105,6 +108,14 @@ public class EligibilityHistory {
     }
     public void setEligibility_status(String eligibility_status) {
         this.eligibility_status = eligibility_status;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     

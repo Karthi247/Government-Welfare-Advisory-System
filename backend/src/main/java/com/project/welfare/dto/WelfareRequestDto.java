@@ -10,6 +10,7 @@ public class WelfareRequestDto {
     private double annual_income;
     private String disability;     // YES / NO
     private String is_minority;    // YES / NO
+    private Integer userId;
 
     public int getAge() {
         return age;
@@ -65,5 +66,13 @@ public class WelfareRequestDto {
     }
     public void setIs_minority(String is_minority) {
         this.is_minority = is_minority;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

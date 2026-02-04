@@ -13,4 +13,6 @@ public interface EligibilityHistoryRepository
 
            List<EligibilityHistory> findAllByOrderByCheckedAtDesc();
 
+           List<EligibilityHistory> findAllByUserIdOrderByCheckedAtDesc(Integer userId);
+
 }
