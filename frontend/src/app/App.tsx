@@ -14,6 +14,7 @@ import { SchemeDetailsPage } from "./components/SchemeDetailsPage";
 import { History } from "./components/History";
 import { Help } from "./components/Help";
 import Profile from "./components/Profile";
+import { TrackApplications } from "./components/TrackApplications";
 
 type Screen = "dashboard" | "profile";
 
@@ -64,7 +65,7 @@ export default function App() {
   const handleNavigate = (view: string) => {
     setCurrentView(view);
     setSidebarOpen(false);
-    setScreen("dashboard"); // 👈 ensure main content
+    setScreen("dashboard"); 
   };
 
   /* ================= SCHEME HANDLER ================= */
@@ -145,6 +146,9 @@ export default function App() {
         case "history":
           return <History />;
 
+        case "track-applications":
+          return <TrackApplications onViewSchemeDetails={handleViewSchemeDetails} />;
+
         case "help":
           return <Help />;
 
@@ -157,8 +161,9 @@ export default function App() {
     if (userRole === "officer") {
       switch (currentView) {
         case "officer-dashboard":
+          return <OfficerDashboard view="dashboard" />;
         case "applications":
-          return <OfficerDashboard />;
+          return <OfficerDashboard view="applications" />;
 
         case "schemes":
           return <Schemes onViewDetails={handleViewSchemeDetails} />;
@@ -183,10 +188,15 @@ export default function App() {
     if (userRole === "admin") {
       switch (currentView) {
         case "admin-dashboard":
-        case "officers":
-        case "analytics":
-        case "system":
-          return <AdminDashboard />;
+          return <AdminDashboard view="overview" />;
+        case "admin-schemes":
+          return <AdminDashboard view="schemes" />;
+        case "admin-officers":
+          return <AdminDashboard view="officers" />;
+        case "admin-applications":
+          return <AdminDashboard view="applications" />;
+        case "admin-users":
+          return <AdminDashboard view="users" />;
 
         case "schemes":
           return <Schemes onViewDetails={handleViewSchemeDetails} />;
@@ -217,7 +227,7 @@ export default function App() {
       <Navbar
         onMenuClick={() => setSidebarOpen(!sidebarOpen)}
         onLogout={handleLogout}
-        onViewProfile={() => setScreen("profile")} // ✅ WORKS NOW
+        onViewProfile={() => setScreen("profile")} 
         isAuthenticated={isAuthenticated}
       />
 

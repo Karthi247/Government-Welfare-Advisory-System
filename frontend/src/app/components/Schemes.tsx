@@ -10,6 +10,8 @@ import {
   SelectValue,
 } from "./ui/select";
 
+const API_BASE = "http://localhost:8080";
+
 interface Scheme {
   id: number;
   schemeName: string;
@@ -47,7 +49,7 @@ export function Schemes({
 
   /* ================= FETCH ================= */
   useEffect(() => {
-    fetch("http://localhost:8080/api/schemes")
+    fetch(`${API_BASE}/api/schemes`)
       .then((res) => res.json())
       .then((data) => {
         setSchemes(data);

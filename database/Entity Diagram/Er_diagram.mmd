@@ -1,0 +1,70 @@
+erDiagram
+    USERS {
+        INT id PK
+        VARCHAR full_name
+        VARCHAR email
+        VARCHAR mobile
+        VARCHAR password
+        ENUM role
+        BOOLEAN active
+    }
+
+    SCHEMES {
+        INT id PK
+        VARCHAR scheme_name
+        INT min_age
+        INT max_age
+        DOUBLE max_income
+        VARCHAR category
+        VARCHAR gender
+        VARCHAR location
+        VARCHAR occupation
+        VARCHAR disability_required
+        VARCHAR minority_required
+        VARCHAR description
+    }
+
+    SCHEME_DETAILS {
+        INT id PK
+        INT scheme_id FK
+        TEXT eligibility
+        TEXT benefits
+        TEXT documents_required
+        TEXT application_process
+        VARCHAR official_website
+        VARCHAR helpline_number
+    }
+
+    APPLICATIONS {
+        INT id PK
+        INT user_id FK
+        INT scheme_id FK
+        VARCHAR status
+        TEXT remarks
+        INT officer_id FK
+        DATETIME submitted_at
+        DATETIME updated_at
+        TEXT application_data
+    }
+
+    ELIGIBILITY_HISTORY {
+        INT id PK
+        INT age
+        VARCHAR gender
+        VARCHAR category
+        VARCHAR state
+        VARCHAR occupation
+        DOUBLE annual_income
+        VARCHAR disability
+        VARCHAR is_minority
+        DOUBLE eligibility_score
+        VARCHAR eligibility_status
+        INT user_id FK
+        DATETIME checked_at
+    }
+
+    USERS ||--o{ APPLICATIONS : submits
+    USERS ||--o{ APPLICATIONS : assigns
+    SCHEMES ||--o{ APPLICATIONS : applied_to
+    SCHEMES ||--|| SCHEME_DETAILS : has
+    USERS ||--o{ ELIGIBILITY_HISTORY : checks

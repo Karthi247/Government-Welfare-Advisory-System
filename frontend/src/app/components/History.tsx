@@ -11,7 +11,7 @@ import {
 } from "./ui/dialog";
 import jsPDF from "jspdf";
 
-const API_BASE = "http://localhost:8080/api";
+const API_BASE = "http://localhost:8080";
 
 type HistoryItem = {
   id: number;
@@ -41,11 +41,10 @@ export function History() {
 
     if (!userId) return;
 
-    fetch(`${API_BASE}/welfare/history?userId=${userId}`)
+    fetch(`${API_BASE}/api/welfare/history?userId=${userId}`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {
-          // ✅ FIX: normalize checkedAt → checked_at
           const mapped = data.map((item) => ({
             ...item,
             checked_at: item.checkedAt ?? item.checked_at ?? null,

@@ -21,6 +21,8 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+const API_BASE = "http://localhost:8080";
+
 interface EligibilityFormProps {
   onBack: () => void;
 }
@@ -33,16 +35,15 @@ export function EligibilityForm({ onBack }: EligibilityFormProps) {
   const [eligibilityStatus, setEligibilityStatus] = useState<string>("");
 
 
-  // 🔹 SAME UI FIELDS + BACKEND FIELDS
   const [formData, setFormData] = useState({
-    fullName: "",          // UI only
+    fullName: "",          
     age: "",
     gender: "",
     state: "",
-    income: "",            // UI only
+    income: "",            
     category: "",
     employment: "",
-    maritalStatus: "",     // UI only
+    maritalStatus: "",     
     annual_income: "",
     disability: "NO",
     is_minority: "NO",
@@ -102,7 +103,6 @@ export function EligibilityForm({ onBack }: EligibilityFormProps) {
     if (step > 1) setStep(step - 1);
   };
 
-  // ✅ BACKEND REQUEST (DTO MATCH)
   const handleSubmit = async () => {
     try {
       let parsedUser: any = null;
@@ -122,7 +122,7 @@ export function EligibilityForm({ onBack }: EligibilityFormProps) {
       }
 
       const response = await fetch(
-        "http://localhost:8080/api/welfare/check-eligibility",
+        `${API_BASE}/api/welfare/check-eligibility`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -149,7 +149,6 @@ export function EligibilityForm({ onBack }: EligibilityFormProps) {
 
       console.log("Eligibility API response:", data);
 
-      // ✅ extract array safely
       setEligibleSchemes(
         Array.isArray(data.recommended_schemes)
           ? data.recommended_schemes
@@ -159,7 +158,6 @@ export function EligibilityForm({ onBack }: EligibilityFormProps) {
       setEligibilityScore(data.eligibility_score);
       setEligibilityStatus(data.eligibility_status);
 
-      // Persist latest result for dashboard
       try {
         localStorage.setItem(
           userId ? `latestEligibilityResult:${userId}` : "latestEligibilityResult:guest",

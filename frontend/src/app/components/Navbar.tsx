@@ -25,7 +25,7 @@ export function Navbar({
   const [loggedUser, setLoggedUser] = useState<LoggedUser | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // 🔐 Load logged-in user from localStorage
+  // Load logged-in user from localStorage
   useEffect(() => {
     if (isAuthenticated) {
       const userStr = localStorage.getItem("user");
@@ -119,7 +119,7 @@ export function Navbar({
                       <button
                         onClick={() => {
                           setIsProfileOpen(false);
-                          onViewProfile?.(); // 👈 trigger parent
+                          onViewProfile?.(); 
                         }}
                         className="w-full flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted text-foreground transition-colors"
                       >

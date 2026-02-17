@@ -15,17 +15,14 @@ public class SchemeService {
         this.schemeRepository = schemeRepository;
     }
 
-    // Get all schemes
     public List<Scheme> getAllSchemes() {
         return schemeRepository.findAll();
     }
 
-    // Add scheme
     public Scheme addScheme(Scheme scheme) {
         return schemeRepository.save(scheme);
     }
 
-    // Get scheme by id
     public Scheme getSchemeById(int id) {
         return schemeRepository.findById(id).orElse(null);
     }

@@ -1,0 +1,44 @@
+﻿%% Government Welfare Advisory System - Architecture Diagram
+flowchart LR
+  subgraph Client[Client Layer]
+    Citizen[Citizen Portal]
+    Admin[Admin Dashboard]
+  end
+
+  subgraph Backend[Backend Services]
+    API[REST API]
+    Auth[Auth & Role Management]
+    Rules[Eligibility Rules Engine]
+  end
+
+  subgraph ML[ML Services]
+    MLAPI[ML Inference API]
+    Model[Decision Tree Model]
+    Encoders[Encoders]
+  end
+
+  subgraph Data[Data Layer]
+    Users[(Users DB)]
+    Schemes[(Schemes DB)]
+    RulesDB[(Rules DB)]
+    Training[(ML Training Data)]
+    Reports[(Reports/Outputs)]
+  end
+
+  Citizen --> API
+  Admin --> API
+
+  API --> Auth
+  API --> Rules
+  API --> MLAPI
+
+  MLAPI --> Model
+  MLAPI --> Encoders
+
+  API --> Users
+  API --> Schemes
+  API --> RulesDB
+  Rules --> RulesDB
+
+  MLAPI --> Reports
+  Training --> MLAPI

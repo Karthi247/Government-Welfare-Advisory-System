@@ -8,8 +8,8 @@ public class WelfareRequestDto {
     private String state;
     private String occupation;
     private double annual_income;
-    private String disability;     // YES / NO
-    private String is_minority;    // YES / NO
+    private String disability;     
+    private String is_minority;    
     private Integer userId;
 
     public int getAge() {

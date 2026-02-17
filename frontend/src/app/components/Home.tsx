@@ -3,6 +3,8 @@ import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { FileCheck, BookOpen, TrendingUp, Clock } from "lucide-react";
 
+const API_BASE = "http://localhost:8080";
+
 interface HomeProps {
   onNavigate: (view: string) => void;
 }
@@ -16,13 +18,11 @@ interface Scheme {
 }
 
 export function Home({ onNavigate }: HomeProps) {
-  // 🔹 state for recent updates
   const [recentSchemes, setRecentSchemes] = useState<Scheme[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // 🔹 fetch recent schemes
   useEffect(() => {
-    fetch("http://localhost:8080/api/welfare/recent")
+    fetch(`${API_BASE}/api/welfare/recent`)
       .then((res) => res.json())
       .then((data) => {
         setRecentSchemes(data);

@@ -1,1 +1,55 @@
-# docker-compose.yml
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: welfare-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: welfare_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  ml-service:
+    build:
+      context: ../..
+      dockerfile: deployment/docker/Dockerfile_ml
+    container_name: welfare-ml
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+
+  backend:
+    build:
+      context: ../..
+      dockerfile: deployment/docker/Dockerfile_backend
+    container_name: welfare-backend
+    restart: unless-stopped
+    depends_on:
+      - db
+      - ml-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/welfare_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 12345
+      ML_API_URL: http://ml-service:5000/predict
+      SERVER_PORT: 8080
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build:
+      context: ../..
+      dockerfile: deployment/docker/Dockerfile_frontend
+    container_name: welfare-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  db_data:

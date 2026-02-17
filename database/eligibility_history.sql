@@ -1,3 +1,5 @@
+-- USE welfare_db;
+
 CREATE TABLE eligibility_history (
     id INT AUTO_INCREMENT PRIMARY KEY,
     age INT,

@@ -7,9 +7,7 @@ import {
   X, 
   LayoutDashboard,
   ClipboardCheck,
-  Users,
-  BarChart3,
-  Shield
+  Users
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { cn } from "./ui/utils";
@@ -29,6 +27,7 @@ const getNavItems = (role: "user" | "officer" | "admin") => {
       { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
       { id: "eligibility", label: "Eligibility Check", icon: FileCheck },
       { id: "schemes", label: "Schemes", icon: BookOpen },
+      { id: "track-applications", label: "Track Applications", icon: ClipboardCheck },
       { id: "history", label: "History", icon: History },
       { id: "help", label: "Help", icon: HelpCircle },
     ];
@@ -46,10 +45,10 @@ const getNavItems = (role: "user" | "officer" | "admin") => {
   // Admin
   return [
     { id: "admin-dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { id: "schemes", label: "Schemes", icon: BookOpen },
-    { id: "officers", label: "Officers", icon: Users },
-    { id: "analytics", label: "Analytics", icon: BarChart3 },
-    { id: "system", label: "System Settings", icon: Shield },
+    { id: "admin-schemes", label: "Schemes", icon: BookOpen },
+    { id: "admin-officers", label: "Officers", icon: Users },
+    { id: "admin-applications", label: "Applications", icon: FileCheck },
+    { id: "admin-users", label: "Users", icon: Users },
     { id: "help", label: "Help", icon: HelpCircle },
   ];
 };

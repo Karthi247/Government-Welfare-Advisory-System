@@ -1,39 +1,71 @@
-# AI-Based Government Welfare Advisory System
+# Government Welfare Advisory System
 
-## 📌 Project Overview
-The AI-Based Government Welfare Advisory System is a web-based application designed to help citizens identify suitable government welfare schemes based on their personal and economic details.  
-The system uses **Machine Learning** to predict eligibility and **Spring Boot** as the backend framework.
+Full-stack web application that helps citizens discover eligible government welfare schemes and enables officers/admins to manage applications and schemes.
 
----
+## Repositories
+- Backend: `backend/`
+- Frontend: `frontend/`
+- Database SQL: `database/`
+- ML model: `ml-model/`
 
-## 🎯 Objectives
-- Provide personalized welfare scheme recommendations
-- Automate eligibility checking using ML
-- Reduce manual effort and misinformation
-- Improve accessibility to government schemes
+## Tech Stack
+- Backend: Java, Spring Boot, Spring Data JPA
+- Frontend: React, TypeScript, Vite, Tailwind CSS, shadcn/ui
+- Database: MySQL (or compatible SQL)
+- ML: Python, scikit-learn
 
----
+## Quick Start
 
-## 🛠️ Technologies Used
+### 1. Database
+Run SQL files in this order:
+- `database/users.sql`
+- `database/scheme.sql`
+- `database/scheme_details.sql`
+- `database/applications.sql`
+- `database/eligibility_history.sql`
 
-### Backend
-- Java
-- Spring Boot
-- Spring Data JPA
-- MySQL
-- Maven
+### 2. Backend
 
-### Machine Learning
-- Python
-- Pandas
-- NumPy
-- Scikit-learn
-- Joblib
+```bash
+cd backend
+mvn spring-boot:run
+```
 
-### Frontend (Optional)
-- React / JSP
-- HTML, CSS, JavaScript
+Backend runs at:
 
----
+```text
+http://localhost:8080
+```
 
+### 3. Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Frontend runs at:
+
+```text
+http://localhost:5173
+```
+
+## Roles
+- **User**: Eligibility check, recommended schemes, apply, track applications
+- **Officer**: Review and approve/reject applications
+- **Admin**: Manage schemes, officers, users, and assignments
+
+## API Summary
+See `backend/README.md` for full endpoint list and request details.
+
+## Folder Highlights
+- `backend/src/main/java/com/project/welfare`: Spring Boot source
+- `frontend/src/app/components`: React UI components
+- `database`: SQL schema + seed data
+- `ml-model`: ML prediction model and training scripts
+
+## Notes
+- Development auth uses headers `X-User-Role` and `X-User-Id`.
+- CORS allows localhost by default.
 

@@ -58,7 +58,7 @@ public class WelfareController {
             status = "NOT_ELIGIBLE";
         }
 
-        // 3. Get scheme recommendations (⭐ THIS IS NEW ⭐)
+        // 3. Get scheme recommendations
         List<SchemeRecommendationDto> recommendedSchemes =
                 schemeRecommendationService.recommendSchemesWithReasons(request, status);
 
@@ -91,8 +91,6 @@ public class WelfareController {
         return schemeRepository.findTop2ByOrderByIdDesc();
     }
 
-
-
     @GetMapping("/history")
     public ResponseEntity<?> getEligibilityHistory(@RequestParam(required = false) Integer userId) {
         if (userId == null) {
@@ -114,6 +112,5 @@ public class WelfareController {
             eligibilityHistoryRepository.findAllByUserIdOrderByCheckedAtDesc(userId)
         );
     }
-
 
 }

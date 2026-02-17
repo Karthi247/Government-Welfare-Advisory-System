@@ -1,1 +1,9 @@
-# Dockerfile for ML model
+# ML model service Dockerfile
+FROM python:3.11-slim
+WORKDIR /app
+COPY ml-model/requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+COPY ml-model/api ./api
+COPY ml-model/data/processed ./data/processed
+EXPOSE 5000
+CMD ["python", "api/ml_service.py"]

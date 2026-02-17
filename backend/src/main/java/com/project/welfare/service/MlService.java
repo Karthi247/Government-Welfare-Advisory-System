@@ -3,6 +3,7 @@ package com.project.welfare.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -11,7 +12,9 @@ import com.project.welfare.dto.WelfareRequestDto;
 @Service
 public class MlService {
 
-    private static final String ML_API_URL = "http://127.0.0.1:5000/predict";
+    @Value("${ml.api.url}")
+    private String ML_API_URL;
+
 
     public double getEligibilityScore(WelfareRequestDto dto) {
 

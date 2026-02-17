@@ -31,7 +31,25 @@ public class SchemeRecommendationService {
     for (Scheme scheme : allSchemes) {
 
         boolean ageMatch = user.getAge() >= scheme.getMinAge();
+        if (scheme.getMaxAge() != null && scheme.getMaxAge() > 0) {
+            ageMatch = ageMatch && user.getAge() <= scheme.getMaxAge();
+        }
         boolean incomeMatch = user.getAnnual_income() <= scheme.getMaxIncome();
+
+        boolean categoryMatch =
+                scheme.getCategory() == null ||
+                scheme.getCategory().equalsIgnoreCase("ANY") ||
+                scheme.getCategory().equalsIgnoreCase(user.getCategory());
+
+        boolean genderMatch =
+                scheme.getGender() == null ||
+                scheme.getGender().equalsIgnoreCase("ANY") ||
+                scheme.getGender().equalsIgnoreCase(user.getGender());
+
+        boolean locationMatch =
+                scheme.getLocation() == null ||
+                scheme.getLocation().equalsIgnoreCase("ANY") ||
+                scheme.getLocation().equalsIgnoreCase(user.getState());
 
         boolean occupationMatch =
                 scheme.getOccupation().equalsIgnoreCase("ANY") ||
@@ -45,9 +63,9 @@ public class SchemeRecommendationService {
                 scheme.getMinorityRequired().equalsIgnoreCase("ANY") ||
                 scheme.getMinorityRequired().equalsIgnoreCase(user.getIs_minority());
 
-        if (ageMatch && incomeMatch && occupationMatch && disabilityMatch && minorityMatch) {
+        if (ageMatch && incomeMatch && categoryMatch && genderMatch && locationMatch
+                && occupationMatch && disabilityMatch && minorityMatch) {
 
-            // 👉 BUILD HUMAN-READABLE REASON
             StringBuilder reason = new StringBuilder();
 
             if (scheme.getMinAge() >= 60) {

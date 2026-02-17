@@ -16,10 +16,17 @@ public class Scheme {
     @Column(name = "min_age")
     private int minAge;
 
+    @Column(name = "max_age")
+    private Integer maxAge;
+
     @Column(name = "max_income")
     private double maxIncome;
 
     private String category;
+
+    private String gender;
+
+    private String location;
 
     private String occupation;
 
@@ -68,6 +75,13 @@ public class Scheme {
         this.minAge = minAge;
     }
 
+    public Integer getMaxAge() {
+        return maxAge;
+    }
+    public void setMaxAge(Integer maxAge) {
+        this.maxAge = maxAge;
+    }
+
     public double getMaxIncome() {
         return maxIncome;
     }
@@ -80,6 +94,20 @@ public class Scheme {
     }
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getOccupation() {

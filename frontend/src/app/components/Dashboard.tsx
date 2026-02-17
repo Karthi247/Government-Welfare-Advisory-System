@@ -15,11 +15,11 @@ import { Progress } from "./ui/progress";
 
 interface DashboardProps {
   onNavigateToEligibility: () => void;
-  onViewSchemeDetails: (id: number) => void; // ✅ REQUIRED
+  onViewSchemeDetails: (id: number) => void; 
 }
 
 type RecommendedSchemeCard = {
-  id: number; // ✅ REAL SCHEME ID
+  id: number; 
   name: string;
   description?: string;
   status?: "eligible" | "review" | "not-eligible" | "recommended" | "new";
@@ -32,11 +32,11 @@ type HistoryItem = {
   status: "Approved" | "Under Review" | "Pending";
 };
 
-const API_BASE = "http://localhost:8080/api";
+const API_BASE = "http://localhost:8080";
 
 export function Dashboard({
   onNavigateToEligibility,
-  onViewSchemeDetails, // ✅ RECEIVED
+  onViewSchemeDetails, 
 }: DashboardProps) {
   const [recommendedSchemes, setRecommendedSchemes] = useState<
     RecommendedSchemeCard[]
@@ -82,16 +82,29 @@ export function Dashboard({
           hasStoredResult = true;
         }
 
-        // ✅ UPDATED: USE REAL scheme_id FROM BACKEND
         if (Array.isArray(parsed.recommended_schemes)) {
-          const cards = parsed.recommended_schemes.map((scheme: any) => ({
-            id: scheme.scheme_id, // ✅ FIX
-            name: scheme.scheme_name || "Recommended Scheme",
-            description:
-              scheme.reason ||
-              "Recommended based on your eligibility profile.",
-            status: "recommended" as const,
-          }));
+          const cards = parsed.recommended_schemes
+            .map((scheme: any) => {
+              const rawId =
+                scheme.scheme_id ?? scheme.schemeId ?? scheme.id ?? null;
+              const parsedId =
+                typeof rawId === "number"
+                  ? rawId
+                  : rawId
+                  ? Number(rawId)
+                  : null;
+
+              return {
+                id: Number.isFinite(parsedId as number) ? (parsedId as number) : 0,
+                name: scheme.scheme_name || scheme.schemeName || "Recommended Scheme",
+                description:
+                  scheme.reason ||
+                  "Recommended based on your eligibility profile.",
+                status: "recommended" as const,
+              };
+            })
+            .filter((scheme: RecommendedSchemeCard) => scheme.id > 0);
+
           setRecommendedSchemes(cards);
           hasStoredResult = true;
         }
@@ -102,9 +115,9 @@ export function Dashboard({
       try {
         const [historyRes, schemesRes] = await Promise.all([
           userId
-            ? fetch(`${API_BASE}/welfare/history?userId=${userId}`)
+            ? fetch(`${API_BASE}/api/welfare/history?userId=${userId}`)
             : Promise.resolve(null),
-          fetch(`${API_BASE}/schemes`),
+          fetch(`${API_BASE}/api/schemes`),
         ]);
 
         if (historyRes && historyRes.ok) {
@@ -286,13 +299,14 @@ export function Dashboard({
                 <span className="text-sm text-muted-foreground">
                   Personalized based on your profile
                 </span>
-                {/* <Button
+                <Button
                   size="sm"
                   variant="outline"
                   onClick={() => onViewSchemeDetails(scheme.id)}
+                  disabled={!scheme.id}
                 >
-                  View Details
-                </Button> */}
+                  Apply Now
+                </Button>
               </div>
             </Card>
           ))}

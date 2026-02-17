@@ -3,7 +3,7 @@ import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { Building2, Mail, Lock, ArrowLeft } from "lucide-react";
+import { Building2, Mail, Lock, ArrowLeft, Eye, EyeOff } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -12,6 +12,8 @@ import {
   SelectValue,
 } from "./ui/select";
 
+const API_BASE = "http://localhost:8080";
+
 interface LoginProps {
   onLogin: (role: "user" | "officer" | "admin") => void;
   onBackToLanding: () => void;
@@ -19,21 +21,23 @@ interface LoginProps {
 }
 
 export function Login({ onLogin, onBackToLanding, onGoToSignup }: LoginProps) {
-  const [email, setEmail] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<"user" | "officer" | "admin">("user");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
+      const response = await fetch(`${API_BASE}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email,
+          email: identifier.includes("@") ? identifier : undefined,
+          mobile: identifier.includes("@") ? undefined : identifier,
           password,
         }),
       });
@@ -46,7 +50,6 @@ export function Login({ onLogin, onBackToLanding, onGoToSignup }: LoginProps) {
 
       const user = await response.json();
 
-      // 🔐 ROLE VALIDATION (KEY FIX)
       const backendRole = user.role.toLowerCase();
 
       if (backendRole !== role) {
@@ -89,7 +92,7 @@ export function Login({ onLogin, onBackToLanding, onGoToSignup }: LoginProps) {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* 🔒 Role selector kept for UI, but NOT trusted */}
+            {/* Role selector kept for UI, but NOT trusted */}
             <div>
               <Label htmlFor="role">Login As *</Label>
               <Select value={role} onValueChange={(value: any) => setRole(value)}>
@@ -105,15 +108,15 @@ export function Login({ onLogin, onBackToLanding, onGoToSignup }: LoginProps) {
             </div>
 
             <div>
-              <Label htmlFor="email">Email Address *</Label>
+              <Label htmlFor="identifier">Email or Phone *</Label>
               <div className="relative mt-2">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  id="identifier"
+                  type="text"
+                  placeholder="Enter your email or phone"
+                  value={identifier}
+                  onChange={(e) => setIdentifier(e.target.value)}
                   className="pl-10 h-12"
                   required
                 />
@@ -126,22 +129,30 @@ export function Login({ onLogin, onBackToLanding, onGoToSignup }: LoginProps) {
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="pl-10 h-12"
+                  className="pl-10 h-12 pr-20"
                   required
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
               </div>
             </div>
 
-            <Button type="submit" size="lg" className="w-full bg-primary">
+            <Button type="submit" size="lg" className="w-full bg-accent  ">
               Login
             </Button>
           </form>
 
-          <div className="mt-6 text-center">
+          <div className="text-center">
             <p className="text-sm text-muted-foreground">
               Don't have an account?{" "}
               <Button

@@ -7,4 +7,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findByMobile(String mobile);
     User findByEmail(String email);
+    long countByRole(String role);
 }

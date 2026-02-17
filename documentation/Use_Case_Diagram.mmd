@@ -1,0 +1,40 @@
+﻿%% Government Welfare Advisory System - Use Case Diagram
+flowchart LR
+  %% Actors
+  Citizen((Citizen))
+  Officer((Welfare Officer))
+  Admin((Administrator))
+  Auditor((Auditor))
+
+  %% Use Cases
+  UC1([Check Eligibility])
+  UC2([Apply for Scheme])
+  UC3([Upload Documents])
+  UC4([Track Application Status])
+
+  UC5([Review Application])
+  UC6([Approve / Reject Application])
+  UC7([Request Additional Info])
+
+  UC8([Manage Schemes])
+  UC9([Manage Eligibility Rules])
+  UC10([Retrain ML Model])
+  UC11([Generate Reports])
+
+  %% Associations
+  Citizen --> UC1
+  Citizen --> UC2
+  Citizen --> UC3
+  Citizen --> UC4
+
+  Officer --> UC5
+  Officer --> UC6
+  Officer --> UC7
+  Officer --> UC11
+
+  Admin --> UC8
+  Admin --> UC9
+  Admin --> UC10
+  Admin --> UC11
+
+  Auditor --> UC11

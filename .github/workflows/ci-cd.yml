@@ -1,0 +1,95 @@
+name: CI/CD Pipeline
+
+permissions:
+  contents: read
+  packages: write
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: [ "main" ]
+  # pull_request:
+  #   branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+      # Uses JDK 21 for future compatibility; project currently targets Java 17.
+        uses: actions/setup-java@v3
+        with:
+          java-version: "21"
+          distribution: "temurin"
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn -f backend/pom.xml clean package -DskipTests
+
+      - name: Build Docker Images
+        run: |
+          docker build -t welfare-backend -f deployment/docker/Dockerfile_backend .
+          docker build -t welfare-frontend -f deployment/docker/Dockerfile_frontend .
+          docker build -t welfare-ml -f deployment/docker/Dockerfile_ml .
+
+      - name: Log in to DockerHub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Push Docker Images
+        if: github.ref == 'refs/heads/main'
+        run: |
+          docker tag welfare-backend ${{ secrets.DOCKER_USERNAME }}/welfare-backend:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/welfare-backend:latest
+          docker tag welfare-frontend ${{ secrets.DOCKER_USERNAME }}/welfare-frontend:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/welfare-frontend:latest
+          docker tag welfare-ml ${{ secrets.DOCKER_USERNAME }}/welfare-ml:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/welfare-ml:latest
+
+      - name: Deploy to Railway
+        if: github.ref == 'refs/heads/main'
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          npm install -g @railway/cli
+          railway up --service welfare-backend --detach
+
+      - name: Deploy Frontend to Railway
+        if: github.ref == 'refs/heads/main'
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          npm install -g @railway/cli
+          railway up --service welfare-frontend --detach
+
+      - name: Deploy ML to Railway
+        if: github.ref == 'refs/heads/main'
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          npm install -g @railway/cli
+          railway up --service welfare-ml --detach
+
+      # Render deploy placeholder for future use
+      # - name: Deploy to Render
+      #   if: github.ref == 'refs/heads/main'
+      #   env:
+      #     RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+      #   run: |
+      #     curl -X POST "https://api.render.com/v1/services/<service-id>/deploys" \
+      #       -H "Authorization: Bearer $RENDER_API_KEY"
+
+      # PR comment placeholder for future use
+      # - name: Comment on PR
+      #   if: github.event_name == 'pull_request'
+      #   uses: actions/github-script@v7
+      #   with:
+      #     script: |
+      #       github.rest.issues.createComment({
+      #         issue_number: context.issue.number,
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         body: "Build completed successfully."
+      #       })
