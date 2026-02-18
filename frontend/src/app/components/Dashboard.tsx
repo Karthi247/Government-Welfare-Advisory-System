@@ -50,6 +50,7 @@ export function Dashboard({
   const [historyCount, setHistoryCount] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [hasEligibilityResult, setHasEligibilityResult] = useState(false);
+  const [showAllRecommended, setShowAllRecommended] = useState(false);
 
   useEffect(() => {
     let hasStoredResult = false;
@@ -189,6 +190,11 @@ export function Dashboard({
       : "Eligibility score is based on your latest check";
   }, [eligibilityScore, eligibilityStatus, schemeCount, eligibleCount]);
 
+  const visibleRecommendedSchemes = useMemo(() => {
+    if (showAllRecommended) return recommendedSchemes;
+    return recommendedSchemes.slice(0, 4);
+  }, [recommendedSchemes, showAllRecommended]);
+
   return (
     <div className="space-y-6 p-6">
       {/* Welcome Banner */}
@@ -252,7 +258,7 @@ export function Dashboard({
         <Card className="p-6 shadow-sm hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-muted-foreground mb-1">Your Applications</p>
+              <p className="text-muted-foreground mb-1">Eligibility Check Count</p>
               <h3 className="text-3xl mb-2">
                 {loading ? "--" : historyCount.toLocaleString()}
               </h3>
@@ -271,13 +277,13 @@ export function Dashboard({
       <div>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl">Recommended Schemes for You</h2>
-          <Button variant="ghost" className="text-primary">
-            View All <ChevronRight className="h-4 w-4 ml-1" />
-          </Button>
+          <span className="text-sm text-muted-foreground">
+            {recommendedSchemes.length} schemes
+          </span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {recommendedSchemes.map((scheme) => (
+          {visibleRecommendedSchemes.map((scheme) => (
             <Card
               key={scheme.id}
               className="p-5 shadow-sm hover:shadow-md transition-shadow"
@@ -311,6 +317,22 @@ export function Dashboard({
             </Card>
           ))}
         </div>
+
+        {recommendedSchemes.length > 4 && (
+          <div className="mt-4 flex justify-center">
+            <Button
+              variant="outline"
+              onClick={() => setShowAllRecommended((prev) => !prev)}
+            >
+              {showAllRecommended ? "View Less" : "View More"}
+              <ChevronRight
+                className={`ml-1 h-4 w-4 transition-transform ${
+                  showAllRecommended ? "rotate-90" : ""
+                }`}
+              />
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

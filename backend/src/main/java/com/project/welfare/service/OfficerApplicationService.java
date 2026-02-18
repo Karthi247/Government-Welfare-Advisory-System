@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.project.welfare.Entity.Application;
 import com.project.welfare.Entity.ApplicationStatus;
-import com.project.welfare.Entity.Scheme;
 import com.project.welfare.Entity.User;
 import com.project.welfare.dto.OfficerApplicationDetailDto;
 import com.project.welfare.dto.OfficerApplicationSummaryDto;
@@ -135,11 +134,7 @@ public class OfficerApplicationService {
             applicantName = userOpt.get().getFullName();
         }
 
-        String schemeName = "Unknown";
-        Optional<Scheme> schemeOpt = schemeRepository.findById(app.getSchemeId());
-        if (schemeOpt.isPresent()) {
-            schemeName = schemeOpt.get().getSchemeName();
-        }
+        String schemeName = schemeRepository.findSchemeNameById(app.getSchemeId()).orElse("Unknown");
 
         return new OfficerApplicationSummaryDto(
                 app.getId(),
@@ -170,14 +165,10 @@ public class OfficerApplicationService {
             dto.setCitizen(citizen);
         }
 
-        Optional<Scheme> schemeOpt = schemeRepository.findById(app.getSchemeId());
-        if (schemeOpt.isPresent()) {
-            Scheme scheme = schemeOpt.get();
-            OfficerApplicationDetailDto.SchemeDto schemeDto = new OfficerApplicationDetailDto.SchemeDto();
-            schemeDto.setId(scheme.getId());
-            schemeDto.setSchemeName(scheme.getSchemeName());
-            dto.setScheme(schemeDto);
-        }
+        OfficerApplicationDetailDto.SchemeDto schemeDto = new OfficerApplicationDetailDto.SchemeDto();
+        schemeDto.setId(app.getSchemeId());
+        schemeDto.setSchemeName(schemeRepository.findSchemeNameById(app.getSchemeId()).orElse("Unknown"));
+        dto.setScheme(schemeDto);
 
         return dto;
     }

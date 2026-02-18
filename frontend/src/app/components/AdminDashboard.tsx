@@ -510,6 +510,16 @@ export function AdminDashboard({ view = "overview" }: { view?: "overview" | "sch
     );
   };
 
+  const getApplicationStatusClass = (status: AdminApplication["status"]) => {
+    if (status === "APPROVED") {
+      return "bg-[#4CAF50]/10 text-[#2E7D32] border-[#4CAF50]/20";
+    }
+    if (status === "REJECTED") {
+      return "bg-destructive/10 text-destructive border-destructive/20";
+    }
+    return "bg-[#FFA726]/10 text-[#F57C00] border-[#FFA726]/20";
+  };
+
   const statusCounts = useMemo(() => {
     const counts = { PENDING: 0, APPROVED: 0, REJECTED: 0 };
     applications.forEach((app) => {
@@ -862,7 +872,13 @@ export function AdminDashboard({ view = "overview" }: { view?: "overview" | "sch
                         <td className="p-4">{app.id}</td>
                         <td className="p-4">{app.applicantName}</td>
                         <td className="p-4">{app.schemeName}</td>
-                        <td className="p-4">{app.status}</td>
+                        <td className="p-4">
+                          <span
+                            className={`px-3 py-1 rounded-full text-xs border ${getApplicationStatusClass(app.status)}`}
+                          >
+                            {app.status}
+                          </span>
+                        </td>
                         <td className="p-4">
                           <Select
                             value={
@@ -893,19 +909,29 @@ export function AdminDashboard({ view = "overview" }: { view?: "overview" | "sch
                           </Select>
                         </td>
                         <td className="p-4">
+                          {(() => {
+                            const selected =
+                              assignSelections[app.id] ??
+                              (app.officerId ? String(app.officerId) : UNASSIGNED);
+                            const isAssigned = !!app.officerId;
+                            const isSameAsCurrent =
+                              isAssigned && selected === String(app.officerId);
+                            const canAssign = !!selected && selected !== UNASSIGNED && !isSameAsCurrent;
+
+                            return (
                           <Button
                             size="sm"
                             variant="outline"
+                            disabled={!canAssign}
                             onClick={() => {
-                              const selected =
-                                assignSelections[app.id] ??
-                                (app.officerId ? String(app.officerId) : UNASSIGNED);
-                              if (!selected || selected === UNASSIGNED) return;
+                              if (!canAssign) return;
                               handleAssignOfficerFor(app.id, Number(selected));
                             }}
                           >
-                            Assign
+                            {isSameAsCurrent ? "Assigned" : "Assign"}
                           </Button>
+                            );
+                          })()}
                         </td>
                       </tr>
                     ))}

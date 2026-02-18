@@ -1,44 +1,81 @@
-﻿%% Government Welfare Advisory System - Architecture Diagram
-flowchart LR
-  subgraph Client[Client Layer]
-    Citizen[Citizen Portal]
-    Admin[Admin Dashboard]
-  end
+﻿flowchart LR
 
-  subgraph Backend[Backend Services]
-    API[REST API]
-    Auth[Auth & Role Management]
-    Rules[Eligibility Rules Engine]
-  end
+%% ================= CLIENT LAYER =================
+subgraph Client_Layer["Client Layer"]
+    Citizen["Citizen Web Portal"]
+    Officer["Officer Dashboard"]
+    Admin["Admin Panel"]
+end
 
-  subgraph ML[ML Services]
-    MLAPI[ML Inference API]
-    Model[Decision Tree Model]
-    Encoders[Encoders]
-  end
+%% ================= SECURITY LAYER =================
+subgraph Security_Layer["Security Layer"]
+    JWT["JWT Authentication"]
+    RBAC["Role-Based Access Control"]
+end
 
-  subgraph Data[Data Layer]
-    Users[(Users DB)]
-    Schemes[(Schemes DB)]
-    RulesDB[(Rules DB)]
-    Training[(ML Training Data)]
-    Reports[(Reports/Outputs)]
-  end
+%% ================= API GATEWAY =================
+subgraph API_Layer["API Gateway / Controller Layer"]
+    API["REST Controllers"]
+end
 
-  Citizen --> API
-  Admin --> API
+%% ================= BUSINESS LOGIC =================
+subgraph Service_Layer["Service Layer"]
+    UserService["User Service"]
+    SchemeService["Scheme Service"]
+    ApplicationService["Application Service"]
+    EligibilityEngine["Eligibility Rules Engine"]
+    ReportService["Report Service"]
+end
 
-  API --> Auth
-  API --> Rules
-  API --> MLAPI
+%% ================= ML MODULE =================
+subgraph ML_Layer["Machine Learning Layer"]
+    ML_API["ML Inference API (Flask)"]
+    Model["Decision Tree Model"]
+    Encoders["Feature Encoders"]
+    Training["Model Training Module"]
+end
 
-  MLAPI --> Model
-  MLAPI --> Encoders
+%% ================= DATABASE LAYER =================
+subgraph Data_Layer["Database Layer"]
+    UserDB[(Users & Roles DB)]
+    SchemeDB[(Schemes & Details DB)]
+    AppDB[(Applications DB)]
+    HistoryDB[(Eligibility History DB)]
+    MLData[(Training Dataset)]
+    Logs[(System Logs)]
+end
 
-  API --> Users
-  API --> Schemes
-  API --> RulesDB
-  Rules --> RulesDB
+%% ================= FLOW =================
 
-  MLAPI --> Reports
-  Training --> MLAPI
+Citizen --> API
+Officer --> API
+Admin --> API
+
+API --> JWT
+JWT --> RBAC
+
+API --> UserService
+API --> SchemeService
+API --> ApplicationService
+API --> EligibilityEngine
+API --> ReportService
+API --> ML_API
+
+UserService --> UserDB
+SchemeService --> SchemeDB
+ApplicationService --> AppDB
+EligibilityEngine --> HistoryDB
+ReportService --> AppDB
+
+EligibilityEngine --> SchemeDB
+
+ML_API --> Model
+ML_API --> Encoders
+ML_API --> HistoryDB
+
+Training --> MLData
+Training --> Model
+MLData --> ML_API
+
+ApplicationService --> Logs
+UserService --> Logs

@@ -48,7 +48,7 @@ public class AdminService {
     }
 
     public List<Scheme> getSchemes() {
-        return schemeRepository.findAll();
+        return schemeRepository.findAllWithDetails();
     }
 
     public Scheme createScheme(AdminSchemeRequestDto request) {
@@ -155,8 +155,7 @@ public class AdminService {
                     String applicantName = userRepository.findById(app.getUserId())
                             .map(User::getFullName)
                             .orElse("Unknown");
-                    String schemeName = schemeRepository.findById(app.getSchemeId())
-                            .map(Scheme::getSchemeName)
+                    String schemeName = schemeRepository.findSchemeNameById(app.getSchemeId())
                             .orElse("Unknown");
                     return new AdminApplicationSummaryDto(
                             app.getId(),

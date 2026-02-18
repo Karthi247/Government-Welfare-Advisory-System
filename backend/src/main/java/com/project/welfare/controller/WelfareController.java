@@ -1,6 +1,7 @@
 package com.project.welfare.controller;
 
 import java.util.List;
+import org.springframework.data.domain.PageRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.welfare.Entity.EligibilityHistory;
 import java.time.LocalDateTime;
-import com.project.welfare.Entity.Scheme;
+import com.project.welfare.dto.SchemeListDto;
 import com.project.welfare.dto.SchemeRecommendationDto;
 import com.project.welfare.dto.WelfareRequestDto;
 import com.project.welfare.dto.WelfareResponseDto;
@@ -87,8 +88,8 @@ public class WelfareController {
     }
 
     @GetMapping("/recent")
-    public List<Scheme> getRecentSchemes() {
-        return schemeRepository.findTop2ByOrderByIdDesc();
+    public List<SchemeListDto> getRecentSchemes() {
+        return schemeRepository.findRecentForList(PageRequest.of(0, 2));
     }
 
     @GetMapping("/history")

@@ -1,5 +1,6 @@
 package com.project.welfare.service;
 
+import com.project.welfare.dto.SchemeListDto;
 import com.project.welfare.Entity.Scheme;
 import com.project.welfare.repository.SchemeRepository;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,8 @@ public class SchemeService {
         this.schemeRepository = schemeRepository;
     }
 
-    public List<Scheme> getAllSchemes() {
-        return schemeRepository.findAll();
+    public List<SchemeListDto> getAllSchemes() {
+        return schemeRepository.findAllForList();
     }
 
     public Scheme addScheme(Scheme scheme) {
@@ -24,7 +25,7 @@ public class SchemeService {
     }
 
     public Scheme getSchemeById(int id) {
-        return schemeRepository.findById(id).orElse(null);
+        return schemeRepository.findByIdWithDetails(id).orElse(null);
     }
 }
 

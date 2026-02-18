@@ -1,12 +1,35 @@
 erDiagram
+
     USERS {
         INT id PK
         VARCHAR full_name
         VARCHAR email
         VARCHAR mobile
         VARCHAR password
-        ENUM role
+        INT role_id FK
         BOOLEAN active
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    ROLES {
+        INT id PK
+        VARCHAR role_name
+    }
+
+    STATES {
+        INT id PK
+        VARCHAR state_name
+    }
+
+    CATEGORIES {
+        INT id PK
+        VARCHAR category_name
+    }
+
+    OCCUPATIONS {
+        INT id PK
+        VARCHAR occupation_name
     }
 
     SCHEMES {
@@ -15,13 +38,15 @@ erDiagram
         INT min_age
         INT max_age
         DOUBLE max_income
-        VARCHAR category
+        INT category_id FK
         VARCHAR gender
-        VARCHAR location
-        VARCHAR occupation
-        VARCHAR disability_required
-        VARCHAR minority_required
-        VARCHAR description
+        INT state_id FK
+        INT occupation_id FK
+        BOOLEAN disability_required
+        BOOLEAN minority_required
+        TEXT description
+        BOOLEAN active
+        DATETIME created_at
     }
 
     SCHEME_DETAILS {
@@ -35,36 +60,51 @@ erDiagram
         VARCHAR helpline_number
     }
 
+    APPLICATION_STATUS {
+        INT id PK
+        VARCHAR status_name
+    }
+
     APPLICATIONS {
         INT id PK
         INT user_id FK
         INT scheme_id FK
-        VARCHAR status
+        INT status_id FK
+        INT assigned_officer_id FK
         TEXT remarks
-        INT officer_id FK
+        TEXT application_data
         DATETIME submitted_at
         DATETIME updated_at
-        TEXT application_data
     }
 
     ELIGIBILITY_HISTORY {
         INT id PK
+        INT user_id FK
+        INT scheme_id FK
+        INT state_id FK
+        INT category_id FK
+        INT occupation_id FK
         INT age
         VARCHAR gender
-        VARCHAR category
-        VARCHAR state
-        VARCHAR occupation
         DOUBLE annual_income
-        VARCHAR disability
-        VARCHAR is_minority
+        BOOLEAN disability
+        BOOLEAN minority
         DOUBLE eligibility_score
         VARCHAR eligibility_status
-        INT user_id FK
         DATETIME checked_at
     }
 
+    ROLES ||--o{ USERS : has
     USERS ||--o{ APPLICATIONS : submits
-    USERS ||--o{ APPLICATIONS : assigns
-    SCHEMES ||--o{ APPLICATIONS : applied_to
-    SCHEMES ||--|| SCHEME_DETAILS : has
+    USERS ||--o{ APPLICATIONS : reviews
     USERS ||--o{ ELIGIBILITY_HISTORY : checks
+
+    STATES ||--o{ SCHEMES : belongs_to
+    CATEGORIES ||--o{ SCHEMES : applies_to
+    OCCUPATIONS ||--o{ SCHEMES : applies_to
+
+    SCHEMES ||--|| SCHEME_DETAILS : has
+    SCHEMES ||--o{ APPLICATIONS : receives
+    SCHEMES ||--o{ ELIGIBILITY_HISTORY : evaluated_for
+
+    APPLICATION_STATUS ||--o{ APPLICATIONS : defines

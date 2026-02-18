@@ -1,6 +1,7 @@
 package com.project.welfare.controller;
 
 import com.project.welfare.Entity.Scheme;
+import com.project.welfare.dto.SchemeListDto;
 import com.project.welfare.service.SchemeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class SchemeController {
     }
 
     @GetMapping
-    public List<Scheme> getAllSchemes() {
+    public List<SchemeListDto> getAllSchemes() {
         return schemeService.getAllSchemes();
     }
 

@@ -78,8 +78,7 @@ public class ApplicationController {
                 applicationRepository.findByUserIdOrderBySubmittedAtDesc(userId)
                         .stream()
                         .map(app -> {
-                            String schemeName = schemeRepository.findById(app.getSchemeId())
-                                    .map(scheme -> scheme.getSchemeName())
+                            String schemeName = schemeRepository.findSchemeNameById(app.getSchemeId())
                                     .orElse("Unknown");
                             String officerName = null;
                             if (app.getOfficerId() != null) {

@@ -1,40 +1,70 @@
-﻿%% Government Welfare Advisory System - Use Case Diagram
-flowchart LR
-  %% Actors
-  Citizen((Citizen))
-  Officer((Welfare Officer))
-  Admin((Administrator))
-  Auditor((Auditor))
+﻿flowchart LR
 
-  %% Use Cases
-  UC1([Check Eligibility])
-  UC2([Apply for Scheme])
-  UC3([Upload Documents])
-  UC4([Track Application Status])
+%% ================= ACTORS =================
+Citizen((Citizen))
+Officer((Welfare Officer))
+Admin((Administrator))
+Auditor((Auditor))
 
-  UC5([Review Application])
-  UC6([Approve / Reject Application])
-  UC7([Request Additional Info])
+%% ================= SYSTEM BOUNDARY =================
+subgraph System["Government Welfare Advisory System"]
 
-  UC8([Manage Schemes])
-  UC9([Manage Eligibility Rules])
-  UC10([Retrain ML Model])
-  UC11([Generate Reports])
+    %% -------- Citizen Use Cases --------
+    UC_Login([Register / Login])
+    UC_Check([Check Eligibility])
+    UC_ViewSchemes([View Eligible Schemes])
+    UC_Apply([Apply for Scheme])
+    UC_Upload([Upload Documents])
+    UC_Track([Track Application Status])
+    UC_UpdateProfile([Manage Profile])
 
-  %% Associations
-  Citizen --> UC1
-  Citizen --> UC2
-  Citizen --> UC3
-  Citizen --> UC4
+    %% -------- Officer Use Cases --------
+    UC_ViewAssigned([View Assigned Applications])
+    UC_Review([Review Application])
+    UC_RequestInfo([Request Additional Information])
+    UC_ApproveReject([Approve / Reject Application])
+    UC_UpdateStatus([Update Application Status])
 
-  Officer --> UC5
-  Officer --> UC6
-  Officer --> UC7
-  Officer --> UC11
+    %% -------- Admin Use Cases --------
+    UC_ManageUsers([Manage Users & Roles])
+    UC_ManageSchemes([Create / Update / Delete Schemes])
+    UC_ManageRules([Configure Eligibility Rules])
+    UC_AssignOfficer([Assign Officer to Application])
+    UC_RetrainModel([Retrain ML Model])
+    UC_SystemReports([Generate System Reports])
 
-  Admin --> UC8
-  Admin --> UC9
-  Admin --> UC10
-  Admin --> UC11
+    %% -------- Auditor Use Cases --------
+    UC_ViewLogs([View Audit Logs])
+    UC_AuditReports([Generate Audit Reports])
 
-  Auditor --> UC11
+end
+
+%% ================= RELATIONSHIPS =================
+
+Citizen --> UC_Login
+Citizen --> UC_Check
+Citizen --> UC_ViewSchemes
+Citizen --> UC_Apply
+Citizen --> UC_Upload
+Citizen --> UC_Track
+Citizen --> UC_UpdateProfile
+
+Officer --> UC_Login
+Officer --> UC_ViewAssigned
+Officer --> UC_Review
+Officer --> UC_RequestInfo
+Officer --> UC_ApproveReject
+Officer --> UC_UpdateStatus
+Officer --> UC_SystemReports
+
+Admin --> UC_Login
+Admin --> UC_ManageUsers
+Admin --> UC_ManageSchemes
+Admin --> UC_ManageRules
+Admin --> UC_AssignOfficer
+Admin --> UC_RetrainModel
+Admin --> UC_SystemReports
+
+Auditor --> UC_Login
+Auditor --> UC_ViewLogs
+Auditor --> UC_AuditReports
