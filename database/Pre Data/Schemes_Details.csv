@@ -1,0 +1,101 @@
+id,scheme_id,eligibility,benefits,documents_required,application_process,official_website,helpline_number
+1,1,"Families belonging to EWS/LIG categories as per PMAY norms.","Financial assistance for construction or purchase of house.","Aadhar, Income Certificate, Address Proof","Apply online through PMAY portal or local authority.",https://pmaymis.gov.in,1800116446
+2,2,"Families identified under SECC database.","Health insurance coverage up to Rs 5 lakh per family per year.","Aadhar, Ration Card","Visit empanelled hospital for cashless treatment.",https://pmjay.gov.in,14555
+3,3,"Women from low-income households without LPG connection.","Free LPG connection with financial assistance.","Ration Card, Aadhar","Apply via nearest LPG distributor.",https://pmuy.gov.in,18002666696
+4,4,"Small and marginal farmers owning cultivable land.","Rs 6000 per year income support via DBT.","Aadhar, Land Records","Register through PM-KISAN portal.",https://pmkisan.gov.in,155261
+5,5,"Non-corporate small business owners.","Loan up to Rs 10 lakh under Shishu/Kishore/Tarun categories.","ID Proof, Business Details","Apply via bank or NBFC.",https://mudra.org.in,18001801111
+6,6,"SC/ST and Women entrepreneurs above 18 years.","Bank loans between Rs 10 lakh to Rs 1 crore.","Caste Certificate, Business Plan","Apply via Stand Up India portal or bank.",https://www.standupmitra.in,18001805555
+7,7,"Unorganized sector workers aged 18–40 years.","Guaranteed pension between Rs 1000–5000 per month.","Aadhar, Bank Details","Enroll via bank or CSC.",https://www.npscra.nsdl.co.in,1800110690
+8,8,"Individuals aged 18–50 with bank account.","Life insurance cover of Rs 2 lakh.","Aadhar, Bank Account","Enroll through participating bank.",https://jansuraksha.gov.in,18001801111
+9,9,"Individuals aged 18–70 with bank account.","Accident insurance cover of Rs 2 lakh.","Aadhar, Bank Account","Enroll via bank.",https://jansuraksha.gov.in,18001801111
+10,10,"Students belonging to eligible income and category criteria.","Scholarship financial assistance.","Income Certificate, Caste Certificate","Apply through National Scholarship Portal.",https://scholarships.gov.in,1800118000
+11,11,"Youth seeking skill training certification.","Free skill training and certification.","Aadhar, Education Proof","Register on PMKVY portal.",https://www.pmkvyofficial.org,18001096286
+12,12,"Farmers enrolled in notified crops.","Crop insurance coverage against losses.","Land Documents, Bank Details","Enroll through bank or agriculture office.",https://pmfby.gov.in,18001801551
+13,13,"Registered street vendors.","Working capital loan support.","Vendor ID, Aadhar","Apply through bank portal.",https://pmsvanidhi.mohua.gov.in,1800111979
+14,14,"Senior citizens, widows, and disabled persons under poverty criteria.","Monthly pension assistance.","Income Certificate, Age Proof","Apply through local authority office.",https://nsap.nic.in,1800111111
+15,15,"Citizens and institutions using digital services.","Access to digital services and infrastructure.","Not Required","Access services online.",https://www.digitalindia.gov.in,1800111555
+16,16,"Rural poor households forming SHGs.","Financial and livelihood support.","Income Certificate","Apply via local SHG mission office.",https://aajeevika.gov.in,1800118000
+17,17,"Households without toilet facilities.","Financial assistance for toilet construction.","ID Proof","Apply through local municipality.",https://swachhbharatmission.gov.in,18001800404
+18,18,"Entrepreneurs above 18 years.","Subsidy for establishing enterprises.","Project Report, ID Proof","Apply via KVIC portal.",https://www.kviconline.gov.in,180030000234
+19,19,"Pregnant and lactating women aged 19+.","Maternity benefit of Rs 5000.","Medical Records, Aadhar","Apply via health center.",https://wcd.nic.in,011-23381611
+20,20,"Students from economically weaker families.","Annual scholarship support.","Income Certificate","Apply through NSP portal.",https://scholarships.gov.in,1800118000
+21,21,"Traditional artisans and craftspeople.","Toolkits and financial assistance.","Artisan ID","Apply via Vishwakarma portal.",https://pmvishwakarma.gov.in,18002667777
+22,22,"Citizens aged 18–70 years.","Retirement pension benefits.","Aadhar, Bank Details","Register through NPS portal.",https://www.npscra.nsdl.co.in,1800110690
+23,23,"Eligible ration card holders.","Free food grain distribution.","Ration Card","Through PDS shop.",https://dfpd.gov.in,1800118000
+24,24,"Rural households lacking water access.","Household tap water connection.","Address Proof","Implemented via local authority.",https://jaljeevanmission.gov.in,18001805555
+25,25,"Citizens seeking digital literacy.","Basic digital literacy training.",Aadhar,"Apply via PMGDISHA portal.",https://www.pmgdisha.in,180030003468
+26,26,"Unorganized workers earning below income threshold.","Minimum pension Rs 3000 per month.","Aadhar, Bank Details","Enroll via CSC.",https://maandhan.in,18002666888
+27,27,"Job seekers above 18 years.","Employment assistance and job listings.",Aadhar,"Register on NCS portal.",https://www.ncs.gov.in,18004251514
+28,28,"Micro food processing entrepreneurs.","Credit linked subsidy.","Business Documents","Apply via PMFME portal.",https://pmfme.mofpi.gov.in,011-26406567
+29,29,"Farmers requiring irrigation facilities.","Irrigation infrastructure support.","Land Records","Apply via agriculture office.",https://pmksy.gov.in,18001801551
+30,30,"Youth eligible for apprenticeship.","Stipend support during training.","Education Certificate","Apply via apprenticeship portal.",https://www.apprenticeshipindia.gov.in,1800110099
+31,31,"SC students meeting income criteria.","Scholarship support.","Caste Certificate","Apply via NSP.",https://scholarships.gov.in,1800118000
+32,32,"ST students meeting income criteria.","Scholarship support.","Caste Certificate","Apply via NSP.",https://scholarships.gov.in,1800118000
+33,33,"OBC students meeting income criteria.","Scholarship support.","Caste Certificate","Apply via NSP.",https://scholarships.gov.in,1800118000
+34,34,"Minority community students.","Scholarship assistance.","Minority Certificate","Apply via NSP.",https://scholarships.gov.in,1800118000
+35,35,"Home owners installing rooftop solar.","Capital subsidy support.","Property Documents","Apply via Solar portal.",https://solarrooftop.gov.in,18001803333
+36,36,"Low-income TN families.","Health insurance coverage.","Income Certificate","Apply via TN portal.",https://www.cmchistn.com,18004253993
+37,37,"Girl students pursuing higher education.","Monthly financial assistance.","School Records","Apply via TN portal.",https://www.tn.gov.in,044-25665434
+38,38,"Working women aged 18–40.","Two wheeler subsidy.","Income Certificate","Apply via TN portal.",https://www.tn.gov.in,044-25665434
+39,39,"Elderly citizens 60+.","Monthly pension.","Age Proof","Apply via district office.",https://www.tn.gov.in,044-28524499
+40,40,"Rural poor households.","Housing assistance.","Income Certificate","Apply via local authority.",https://www.tn.gov.in,044-25665434
+41,41,"Eligible TN students.","Free laptop distribution.","School ID","Through institution.",https://www.tn.gov.in,044-25665434
+42,42,"Women eligible for marriage support.","Financial assistance.","Age Proof, Income Certificate","Apply via e-Sevai center.",https://www.tn.gov.in,044-28524499
+43,43,"Differently abled persons.","Monthly pension.","Disability Certificate","Apply via social welfare office.",https://www.tn.gov.in,044-28524499
+44,44,"Farmers requiring solar pumps.","Subsidy support.","Land Records","Apply via agriculture dept.",https://www.tnagrisnet.tn.gov.in,044-22253884
+45,45,"Low income women tailors.","Free sewing machine.","Income Certificate","Apply via district office.",https://www.tn.gov.in,044-28524499
+46,46,"Urban poor residents.","Low cost meals.","Not Required","Visit Amma Canteen.",https://www.tn.gov.in,044-25665434
+47,47,"Students in TN.","Free bus pass.","School ID","Apply via school.",https://www.tn.gov.in,044-25384520
+48,48,"Women SHG members.","Loan and subsidy support.","SHG Registration","Apply via SHG office.",https://www.tn.gov.in,044-25665434
+49,49,"Farmers eligible for machinery subsidy.","Agricultural equipment subsidy.","Land Records","Apply via agriculture office.",https://www.tnagrisnet.tn.gov.in,044-22253884
+50,50,"Registered fishermen.","Financial welfare support.","Fishermen ID","Apply via fisheries office.",https://www.tn.gov.in,044-28524499
+51,51,"Widows meeting income criteria.","Monthly pension.","Widow Certificate","Apply via district office.",https://www.tn.gov.in,044-28524499
+52,52,"Urban poor households.","Livelihood support.","Income Certificate","Apply via corporation office.",https://www.tn.gov.in,044-25665434
+53,53,"Parents of girl child.","Safe surrender support scheme.","Not Required","Through hospital.",https://www.tn.gov.in,044-28524499
+54,54,"Eligible startup founders.","Seed funding assistance.","Business Plan","Apply via Startup TN portal.",https://www.startuptn.in,044-22255335
+55,55,"SC entrepreneurs.","Subsidy support.","Caste Certificate","Apply via TN portal.",https://www.tn.gov.in,044-25665434
+56,56,"OBC students preparing for exams.","Coaching financial support.","Income Certificate","Apply via welfare dept.",https://www.tn.gov.in,044-25665434
+57,57,"Girl children in TN.","Financial protection deposit.","Birth Certificate","Apply via social welfare office.",https://www.tn.gov.in,044-28524499
+58,58,"Low income families.","Free clothing distribution.","Ration Card","Distributed by govt.",https://www.tn.gov.in,044-25665434
+59,59,"Transgender persons in TN.","Financial assistance.","Transgender ID","Apply via welfare dept.",https://www.tn.gov.in,044-28524499
+60,60,"Unemployed youth in TN.","Monthly unemployment allowance.","Employment Registration","Apply via employment office.",https://www.tnvelaivaaippu.gov.in,044-22500160
+61,61,"Migrant workers affected by COVID.","Employment opportunities under public works.",Aadhar,"Implemented via district administration.",https://www.india.gov.in,011-23062050
+62,62,"Ration card holders.","Portability of ration anywhere in India.","Ration Card","Use at any PDS outlet.",https://nfsa.gov.in,1967
+63,63,"Residents of unauthorized colonies.","Property rights regularization.","Address Proof","Apply via UDAY portal.",https://pmuday.gov.in,1800111979
+64,64,"Graduate and diploma holders.","Apprenticeship stipend support.","Degree Certificate","Register via NATS portal.",https://www.mhrdnats.gov.in,18001239626
+65,65,"ST students.","Free residential education.","Caste Certificate","Apply via tribal welfare dept.",https://tribal.nic.in,011-23073726
+66,66,"OBC entrepreneurs below income limit.","Loan assistance.","Income & Caste Certificate","Apply via NBCFDC.",https://nbcfdc.gov.in,011-24363260
+67,67,"Sanitation workers.","Loan and subsidy support.","Occupation Certificate","Apply via NSKFDC.",https://nskfdc.nic.in,011-24648981
+68,68,"Cattle farmers.","Breed improvement support.","Land Records","Apply via animal husbandry dept.",https://dahd.nic.in,011-23384570
+69,69,"Educational institutions.","Policy implementation support.","Institution Documents","Through education ministry.",https://www.education.gov.in,011-23386432
+70,70,"AYUSH practitioners.","Infrastructure and training support.","Registration Certificate","Apply via AYUSH portal.",https://namayush.gov.in,011-24651976
+71,71,"SC entrepreneurs below income limit.","Financial loan support.","Caste Certificate","Apply via NSFDC.",https://nsfdc.nic.in,011-23483130
+72,72,"ST entrepreneurs below income limit.","Loan assistance.","Caste Certificate","Apply via NSTFDC.",https://nstfdc.tribal.gov.in,011-24370617
+73,73,"Livestock farmers.","Subsidy support.","Land Records","Apply via agriculture dept.",https://nlm.udyamimitra.in,011-23384570
+74,74,"Farmers cultivating bamboo.","Plantation subsidy.","Land Records","Apply via agriculture office.",https://nbm.nic.in,011-23384570
+75,75,Beekeepers.,"Financial assistance and training.","Farmer ID","Apply via agriculture dept.",https://nbhm.gov.in,011-23384570
+76,76,"Any Indian citizen.","Zero balance bank account.",Aadhar,"Open account at bank.",https://pmjdy.gov.in,1800110001
+77,77,"Urban local bodies.","LED street lighting implementation.","Municipal Documents","Through EESL.",https://eeslindia.org,18001803580
+78,78,"Working mothers below income threshold.","Childcare support services.","Income Certificate","Apply via women welfare dept.",https://wcd.nic.in,011-23381611
+79,79,"Urban poor households.","Livelihood and skill support.","Income Certificate","Apply via municipal office.",https://nulm.gov.in,1800118000
+80,80,"Rural residents.","Drinking water facilities.","Address Proof","Implemented by state authorities.",https://jaljeevanmission.gov.in,18001805555
+81,81,"Registered fishermen.","Insurance coverage.","Fisherman ID","Apply via fisheries dept.",https://www.tn.gov.in,044-28524499
+82,82,"Government school students.","Free textbooks.","School ID","Distributed via school.",https://www.tn.gov.in,044-25665434
+83,83,"Government school students.","Free bicycle distribution.","School ID","Through school authorities.",https://www.tn.gov.in,044-25665434
+84,84,"Low income families.","Subsidized salt.","Ration Card","Distributed via PDS.",https://www.tn.gov.in,044-25665434
+85,85,"Eligible women under income limit.","Gold assistance for marriage.","Income Certificate","Apply via social welfare office.",https://www.tn.gov.in,044-28524499
+86,86,"Ration card holders.","Free rice.","Ration Card","Through PDS shop.",https://www.tn.gov.in,044-25665434
+87,87,"Polytechnic students.","Free laptop.","College ID","Distributed via institution.",https://www.tn.gov.in,044-25665434
+88,88,"Rural poor households.","Green house construction.","Income Certificate","Apply via district office.",https://www.tn.gov.in,044-25665434
+89,89,"SC/ST students below income limit.","Scholarship support.","Caste Certificate","Apply via TN portal.",https://www.tn.gov.in,044-25665434
+90,90,"Registered farmers.","Welfare benefits and support.","Farmer ID","Apply via agriculture office.",https://www.tn.gov.in,044-22253884
+91,91,"General public.","Subsidized medicines.",Prescription,"Visit Amma pharmacy.",https://www.tn.gov.in,044-25665434
+92,92,"Destitute agricultural labourers aged 60+.","Monthly pension.","Income Certificate","Apply via district office.",https://www.tn.gov.in,044-28524499
+93,93,"Women entrepreneurs below income threshold.","Loan and subsidy support.","Business Plan","Apply via TN portal.",https://www.tn.gov.in,044-25665434
+94,94,"Youth aged 18–35.","Skill training support.",Aadhar,"Apply via skill training centre.",https://www.tn.gov.in,044-25665434
+95,95,"Government school students.","Free nutritious meal.","School ID","Provided through school.",https://www.tn.gov.in,044-25665434
+96,96,"Children who lost parents due to COVID-19.","Financial support, education assistance, and insurance coverage.","Death Certificate of parents, Aadhar","Apply via district administration.",https://pmcaresforchildren.in,1800118000
+97,97,"Families below poverty line upon death of primary breadwinner.","One-time financial assistance.","Income Certificate, Death Certificate","Apply via district social welfare office.",https://nsap.nic.in,1800111111
+98,98,"Rescued child labourers under 18 years.","Education and rehabilitation support.","Rescue certificate","Implemented via labour department.",https://labour.gov.in,011-23716960
+99,99,"Low income TN families requiring major medical treatment.","Financial assistance for approved medical procedures.","Income Certificate, Medical Records","Apply via TN health department.",https://www.cmchistn.com,18004253993
+100,100,"Differently abled persons seeking self employment in TN.","Loan subsidy and financial support.","Disability Certificate, Business Plan","Apply via social welfare office.",https://www.tn.gov.in,044-28524499
