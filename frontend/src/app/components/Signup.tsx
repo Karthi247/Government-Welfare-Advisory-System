@@ -5,7 +5,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Building2, User, Mail, Lock, Phone, ArrowLeft, Eye, EyeOff } from "lucide-react";
 
-const API_BASE = "http://localhost:8080";
+import { API_BASE } from "@/app/config";
 
 interface SignupProps {
   onSignup: () => void;

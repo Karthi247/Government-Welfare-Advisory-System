@@ -2,7 +2,6 @@ package com.project.welfare.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -19,7 +18,6 @@ import com.project.welfare.repository.ApplicationRepository;
 import com.project.welfare.repository.SchemeRepository;
 import com.project.welfare.repository.UserRepository;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/applications")
 public class ApplicationController {
@@ -101,3 +99,4 @@ public class ApplicationController {
         );
     }
 }
+

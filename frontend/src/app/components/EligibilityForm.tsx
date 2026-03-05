@@ -21,7 +21,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-const API_BASE = "http://localhost:8080";
+import { API_BASE } from "@/app/config";
 
 interface EligibilityFormProps {
   onBack: () => void;

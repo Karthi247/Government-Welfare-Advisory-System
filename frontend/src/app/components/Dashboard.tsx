@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   CheckCircle2,
   Clock,
@@ -32,7 +32,7 @@ type HistoryItem = {
   status: "Approved" | "Under Review" | "Pending";
 };
 
-const API_BASE = "http://localhost:8080";
+import { API_BASE } from "@/app/config";
 
 export function Dashboard({
   onNavigateToEligibility,

@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -69,7 +69,7 @@ function parseApplicationData(raw: string | null): ParsedApplicationData | null 
   }
 }
 
-const API_BASE = "http://localhost:8080";
+import { API_BASE } from "@/app/config";
 
 function getAuthHeaders(): Record<string, string> {
   const headers: Record<string, string> = {};

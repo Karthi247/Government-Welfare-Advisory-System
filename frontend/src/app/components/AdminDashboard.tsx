@@ -72,7 +72,7 @@ interface AdminApplication {
 
 const UNASSIGNED = "__UNASSIGNED__";
 
-const API_BASE = "http://localhost:8080";
+import { API_BASE } from "@/app/config";
 
 function getAuthHeaders(): Record<string, string> {
   const headers: Record<string, string> = {};

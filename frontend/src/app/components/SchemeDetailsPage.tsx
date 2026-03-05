@@ -1,11 +1,11 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { ExternalLink } from "lucide-react";
 
-const API_BASE = "http://localhost:8080";
+import { API_BASE } from "@/app/config";
 
 export function SchemeDetailsPage({
   schemeId,

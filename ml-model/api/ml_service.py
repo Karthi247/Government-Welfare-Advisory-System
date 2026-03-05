@@ -1,11 +1,16 @@
 from flask import Flask, request, jsonify
 import joblib
 import pandas as pd
+from pathlib import Path
+import os
 
 app = Flask(__name__)
 
-model = joblib.load("../data/processed/welfare_decision_tree_model.pkl")
-encoders = joblib.load("../data/processed/encoders.pkl")
+BASE_DIR = Path(__file__).resolve().parents[1]
+MODEL_DIR = BASE_DIR / "data" / "processed"
+
+model = joblib.load(MODEL_DIR / "welfare_decision_tree_model.pkl")
+encoders = joblib.load(MODEL_DIR / "encoders.pkl")
 
 # 🔒 EXACT training order (replace if your print shows different)
 FEATURE_ORDER = [
@@ -50,4 +55,5 @@ def predict_score():
 
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    port = int(os.getenv("PORT", "5000"))
+    app.run(host="0.0.0.0", port=port, debug=False)

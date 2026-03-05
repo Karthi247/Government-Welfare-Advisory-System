@@ -2,7 +2,6 @@ package com.project.welfare.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,7 +16,6 @@ import com.project.welfare.dto.OfficerActionRequestDto;
 import com.project.welfare.dto.OfficerApplicationDetailDto;
 import com.project.welfare.service.OfficerApplicationService;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/officer")
 public class OfficerController {
@@ -138,3 +136,4 @@ public class OfficerController {
         return ResponseEntity.ok(dto);
     }
 }
+

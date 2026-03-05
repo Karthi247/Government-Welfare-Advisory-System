@@ -58,6 +58,7 @@ http://localhost:5173
 
 ## API Summary
 See `backend/README.md` for full endpoint list and request details.
+For Railway deployment, see `RAILWAY_DEPLOYMENT.md`.
 
 ## Folder Highlights
 - `backend/src/main/java/com/project/welfare`: Spring Boot source

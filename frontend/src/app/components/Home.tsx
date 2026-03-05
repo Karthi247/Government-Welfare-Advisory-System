@@ -3,7 +3,7 @@ import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { FileCheck, BookOpen, TrendingUp, Clock } from "lucide-react";
 
-const API_BASE = "http://localhost:8080";
+import { API_BASE } from "@/app/config";
 
 interface HomeProps {
   onNavigate: (view: string) => void;

@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "./ui/select";
 
-const API_BASE = "http://localhost:8080";
+import { API_BASE } from "@/app/config";
 
 interface LoginProps {
   onLogin: (role: "user" | "officer" | "admin") => void;

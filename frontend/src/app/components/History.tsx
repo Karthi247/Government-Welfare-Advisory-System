@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
@@ -11,7 +11,7 @@ import {
 } from "./ui/dialog";
 import jsPDF from "jspdf";
 
-const API_BASE = "http://localhost:8080";
+import { API_BASE } from "@/app/config";
 
 type HistoryItem = {
   id: number;
