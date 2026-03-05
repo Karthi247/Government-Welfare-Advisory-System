@@ -57,3 +57,26 @@ Use Railway MySQL connect details and run SQL files from `database/`:
 - `scheme_details.sql`
 - `applications.sql`
 - `eligibility_history.sql`
+
+## 7. GitHub Actions Auto Deploy
+This repo includes workflow:
+- `.github/workflows/ci-cd.yml`
+
+It:
+- builds backend + frontend
+- builds all Docker images
+- deploys backend, frontend, and ML to Railway on every push to `main`
+
+Add these GitHub repository secrets:
+- `RAILWAY_TOKEN`
+- `RAILWAY_PROJECT_ID`
+- `RAILWAY_ENVIRONMENT` (example: `production`)
+- `RAILWAY_SERVICE_BACKEND`
+- `RAILWAY_SERVICE_FRONTEND`
+- `RAILWAY_SERVICE_ML`
+
+How to get IDs:
+1. Install Railway CLI locally.
+2. Run `railway login`.
+3. Run `railway project` to pick the project.
+4. Run `railway status` and copy project/service/environment IDs.
