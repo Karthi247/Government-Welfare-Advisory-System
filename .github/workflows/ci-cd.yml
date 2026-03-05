@@ -6,9 +6,9 @@ permissions:
 on:
   workflow_dispatch:
   push:
-    branches: ["main"]
+    branches: ["Lead"]
   pull_request:
-    branches: ["main"]
+    branches: ["Lead"]
 
 jobs:
   validate:
