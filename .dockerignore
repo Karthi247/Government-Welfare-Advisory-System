@@ -4,5 +4,4 @@
 **/target
 **/.venv
 **/__pycache__
-ml-model/data/raw
 ml-model/outputs

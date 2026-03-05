@@ -3,7 +3,9 @@ FROM python:3.11-slim
 WORKDIR /app
 COPY ml-model/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
+COPY ml-model/src ./src
+COPY ml-model/data/raw ./data/raw
+RUN python src/train_model.py
 COPY ml-model/api ./api
-COPY ml-model/data/processed ./data/processed
 EXPOSE 5000
 CMD ["python", "api/ml_service.py"]

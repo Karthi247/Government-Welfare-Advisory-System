@@ -1,11 +1,18 @@
-﻿import pandas as pd
+import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.tree import DecisionTreeClassifier
 import joblib
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parents[1]
+DATA_DIR = BASE_DIR / "data"
+RAW_DATA_PATH = DATA_DIR / "raw" / "ml_training_dataset.csv"
+PROCESSED_DIR = DATA_DIR / "processed"
+PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 
 # Load dataset
-df = pd.read_csv("../data/raw/ml_training_dataset.csv")
+df = pd.read_csv(RAW_DATA_PATH)
 
 # Target encoding
 df['eligible'] = df['eligible'].map({'Yes': 1, 'No': 0})
@@ -60,7 +67,7 @@ model = DecisionTreeClassifier(random_state=42)
 
 model.fit(X_train, y_train)
 
-joblib.dump(model, "../data/processed/welfare_decision_tree_model.pkl")
-joblib.dump(encoders, "../data/processed/encoders.pkl")
+joblib.dump(model, PROCESSED_DIR / "welfare_decision_tree_model.pkl")
+joblib.dump(encoders, PROCESSED_DIR / "encoders.pkl")
 
 print("Model trained and saved successfully")
