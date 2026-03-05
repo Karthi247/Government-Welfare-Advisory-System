@@ -65,7 +65,14 @@ This repo includes workflow:
 It:
 - builds backend + frontend
 - builds all Docker images
-- deploys backend, frontend, and ML to Railway on every push to `main`
+- deploys backend, frontend, and ML to Railway on every push to `Lead`
+
+Important for Dockerfile-based deploy:
+- In each Railway service, add variable `RAILWAY_DOCKERFILE_PATH`.
+- Values:
+  - backend service: `deployment/docker/Dockerfile_backend`
+  - frontend service: `deployment/docker/Dockerfile_frontend`
+  - ml service: `deployment/docker/Dockerfile_ml`
 
 Add these GitHub repository secrets:
 - `RAILWAY_TOKEN`

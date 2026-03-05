@@ -51,7 +51,7 @@ jobs:
 
   deploy-railway:
     needs: validate
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/Lead'
     runs-on: ubuntu-latest
     env:
       RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
@@ -82,10 +82,10 @@ jobs:
           test -n "$RAILWAY_SERVICE_ML"
 
       - name: Deploy backend service
-        run: railway up --service "$RAILWAY_SERVICE_BACKEND" --environment "$RAILWAY_ENVIRONMENT" --project "$RAILWAY_PROJECT_ID" --ci
+        run: railway up . --path-as-root --service "$RAILWAY_SERVICE_BACKEND" --environment "$RAILWAY_ENVIRONMENT" --project "$RAILWAY_PROJECT_ID" --ci
 
       - name: Deploy frontend service
-        run: railway up --service "$RAILWAY_SERVICE_FRONTEND" --environment "$RAILWAY_ENVIRONMENT" --project "$RAILWAY_PROJECT_ID" --ci
+        run: railway up . --path-as-root --service "$RAILWAY_SERVICE_FRONTEND" --environment "$RAILWAY_ENVIRONMENT" --project "$RAILWAY_PROJECT_ID" --ci
 
       - name: Deploy ML service
-        run: railway up --service "$RAILWAY_SERVICE_ML" --environment "$RAILWAY_ENVIRONMENT" --project "$RAILWAY_PROJECT_ID" --ci
+        run: railway up . --path-as-root --service "$RAILWAY_SERVICE_ML" --environment "$RAILWAY_ENVIRONMENT" --project "$RAILWAY_PROJECT_ID" --ci
