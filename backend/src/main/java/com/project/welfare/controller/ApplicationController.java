@@ -17,6 +17,7 @@ import com.project.welfare.dto.UserApplicationSummaryDto;
 import com.project.welfare.repository.ApplicationRepository;
 import com.project.welfare.repository.SchemeRepository;
 import com.project.welfare.repository.UserRepository;
+import com.project.welfare.service.ApplicationPolicyService;
 
 @RestController
 @RequestMapping("/api/applications")
@@ -25,14 +26,17 @@ public class ApplicationController {
     private final ApplicationRepository applicationRepository;
     private final SchemeRepository schemeRepository;
     private final UserRepository userRepository;
+    private final ApplicationPolicyService applicationPolicyService;
 
     public ApplicationController(
             ApplicationRepository applicationRepository,
             SchemeRepository schemeRepository,
-            UserRepository userRepository) {
+            UserRepository userRepository,
+            ApplicationPolicyService applicationPolicyService) {
         this.applicationRepository = applicationRepository;
         this.schemeRepository = schemeRepository;
         this.userRepository = userRepository;
+        this.applicationPolicyService = applicationPolicyService;
     }
 
     @PostMapping
@@ -50,6 +54,17 @@ public class ApplicationController {
 
         if (!schemeRepository.existsById(request.getSchemeId())) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Scheme not found");
+        }
+
+        if (applicationPolicyService.isApplicationLimitEnabled()) {
+            int maxSchemes = applicationPolicyService.getApplicationLimitMaxSchemes();
+            long appliedSchemeCount = applicationRepository.countDistinctSchemeIdByUserId(userId);
+            boolean alreadyAppliedForScheme = applicationRepository.existsByUserIdAndSchemeId(userId, request.getSchemeId());
+            long effectiveSchemeCount = alreadyAppliedForScheme ? appliedSchemeCount : appliedSchemeCount + 1;
+
+            if (effectiveSchemeCount > maxSchemes) {
+                return ResponseEntity.badRequest().body("You can apply to a maximum of " + maxSchemes + " schemes.");
+            }
         }
 
         Application app = new Application();

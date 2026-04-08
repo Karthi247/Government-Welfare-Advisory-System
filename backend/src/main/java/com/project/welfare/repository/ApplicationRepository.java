@@ -16,5 +16,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
     long countByStatus(ApplicationStatus status);
     long countByStatusAndOfficerId(ApplicationStatus status, Integer officerId);
     long countByStatusAndOfficerIdIsNull(ApplicationStatus status);
+    long countDistinctSchemeIdByUserId(int userId);
+    boolean existsByUserIdAndSchemeId(int userId, int schemeId);
     List<Application> findByUserIdOrderBySubmittedAtDesc(int userId);
 }

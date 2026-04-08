@@ -18,7 +18,9 @@ import com.project.welfare.Entity.Application;
 import com.project.welfare.Entity.Scheme;
 import com.project.welfare.Entity.SchemeDetails;
 import com.project.welfare.Entity.User;
+import com.project.welfare.dto.AdminApplicationLimitDto;
 import com.project.welfare.dto.AdminApplicationSummaryDto;
+import com.project.welfare.dto.AdminApplicationLimitUpdateDto;
 import com.project.welfare.dto.AdminAssignOfficerDto;
 import com.project.welfare.dto.AdminDashboardDto;
 import com.project.welfare.dto.AdminOfficerCreateDto;
@@ -96,6 +98,19 @@ public class AdminController {
     @GetMapping("/applications")
     public List<AdminApplicationSummaryDto> getApplications() {
         return adminService.getApplications();
+    }
+
+    @GetMapping("/application-limit")
+    public AdminApplicationLimitDto getApplicationLimit() {
+        return adminService.getApplicationLimit();
+    }
+
+    @PutMapping("/application-limit")
+    public ResponseEntity<?> updateApplicationLimit(@RequestBody AdminApplicationLimitUpdateDto request) {
+        if (request == null || request.getEnabled() == null) {
+            return ResponseEntity.badRequest().body("enabled is required");
+        }
+        return ResponseEntity.ok(adminService.updateApplicationLimit(request.getEnabled()));
     }
 
     @PostMapping("/officer")

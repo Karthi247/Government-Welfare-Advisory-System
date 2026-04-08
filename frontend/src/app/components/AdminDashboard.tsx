@@ -4,6 +4,7 @@ import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { Switch } from "./ui/switch";
 import {
   Select,
   SelectContent,
@@ -70,6 +71,11 @@ interface AdminApplication {
   officerId: number | null;
 }
 
+interface AdminApplicationLimitSettings {
+  enabled: boolean;
+  maxSchemes: number;
+}
+
 const UNASSIGNED = "__UNASSIGNED__";
 
 import { API_BASE } from "@/app/config";
@@ -99,8 +105,10 @@ export function AdminDashboard({ view = "overview" }: { view?: "overview" | "sch
   const [officers, setOfficers] = useState<User[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [applications, setApplications] = useState<AdminApplication[]>([]);
+  const [applicationLimit, setApplicationLimit] = useState<AdminApplicationLimitSettings | null>(null);
   const [assignSelections, setAssignSelections] = useState<Record<number, string>>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [isUpdatingApplicationLimit, setIsUpdatingApplicationLimit] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const [showSchemeModal, setShowSchemeModal] = useState(false);
@@ -248,8 +256,50 @@ export function AdminDashboard({ view = "overview" }: { view?: "overview" | "sch
     }
   };
 
+  const loadApplicationLimit = async () => {
+    try {
+      const response = await fetch(`${API_BASE}/api/admin/application-limit`, {
+        headers: getAuthHeaders(),
+      });
+      if (!response.ok) {
+        const msg = await response.text();
+        throw new Error(msg || "Failed to load application limit");
+      }
+      const data = await response.json();
+      setApplicationLimit(data);
+    } catch (err: any) {
+      setError(err?.message || "Failed to load application limit");
+    }
+  };
+
+  const handleToggleApplicationLimit = async (enabled: boolean) => {
+    setIsUpdatingApplicationLimit(true);
+    setError(null);
+    try {
+      const response = await fetch(`${API_BASE}/api/admin/application-limit`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        },
+        body: JSON.stringify({ enabled }),
+      });
+      if (!response.ok) {
+        const msg = await response.text();
+        throw new Error(msg || "Failed to update application limit");
+      }
+      const data = await response.json();
+      setApplicationLimit(data);
+    } catch (err: any) {
+      setError(err?.message || "Failed to update application limit");
+    } finally {
+      setIsUpdatingApplicationLimit(false);
+    }
+  };
+
   useEffect(() => {
     loadStats();
+    loadApplicationLimit();
   }, []);
 
   useEffect(() => {
@@ -257,6 +307,7 @@ export function AdminDashboard({ view = "overview" }: { view?: "overview" | "sch
     if (view === "overview") {
       loadApplications();
       loadUsers();
+      loadApplicationLimit();
     }
     if (view === "schemes") loadSchemes();
     if (view === "officers") loadOfficers();
@@ -610,6 +661,31 @@ export function AdminDashboard({ view = "overview" }: { view?: "overview" | "sch
               </div>
             </Card>
           </div>
+
+          <Card className="p-6 shadow-sm">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h3 className="mb-1">Application Limit Rule</h3>
+                <p className="text-sm text-muted-foreground">
+                  Restrict each user to a maximum of {applicationLimit?.maxSchemes ?? 4} schemes.
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-muted-foreground">
+                  {applicationLimit?.enabled ? "Enabled" : "Disabled"}
+                </span>
+                <Switch
+                  checked={!!applicationLimit?.enabled}
+                  onCheckedChange={handleToggleApplicationLimit}
+                  disabled={isUpdatingApplicationLimit}
+                  aria-label="Toggle application limit rule"
+                />
+              </div>
+            </div>
+            <p className="mt-3 text-xs text-muted-foreground">
+              Turn off to restore old logic (no scheme count limit).
+            </p>
+          </Card>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <Card className="p-6 shadow-sm">

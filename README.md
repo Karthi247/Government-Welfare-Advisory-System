@@ -22,6 +22,7 @@ Run SQL files in this order:
 - `database/scheme.sql`
 - `database/scheme_details.sql`
 - `database/applications.sql`
+- `database/system_settings.sql`
 - `database/eligibility_history.sql`
 
 ### 2. Backend

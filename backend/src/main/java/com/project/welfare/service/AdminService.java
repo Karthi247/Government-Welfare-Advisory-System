@@ -9,6 +9,7 @@ import com.project.welfare.Entity.Application;
 import com.project.welfare.Entity.Scheme;
 import com.project.welfare.Entity.SchemeDetails;
 import com.project.welfare.Entity.User;
+import com.project.welfare.dto.AdminApplicationLimitDto;
 import com.project.welfare.dto.AdminApplicationSummaryDto;
 import com.project.welfare.dto.AdminAssignOfficerDto;
 import com.project.welfare.dto.AdminDashboardDto;
@@ -27,16 +28,19 @@ public class AdminService {
     private final SchemeRepository schemeRepository;
     private final ApplicationRepository applicationRepository;
     private final SchemeDetailsRepository schemeDetailsRepository;
+    private final ApplicationPolicyService applicationPolicyService;
 
     public AdminService(
             UserRepository userRepository,
             SchemeRepository schemeRepository,
             ApplicationRepository applicationRepository,
-            SchemeDetailsRepository schemeDetailsRepository) {
+            SchemeDetailsRepository schemeDetailsRepository,
+            ApplicationPolicyService applicationPolicyService) {
         this.userRepository = userRepository;
         this.schemeRepository = schemeRepository;
         this.applicationRepository = applicationRepository;
         this.schemeDetailsRepository = schemeDetailsRepository;
+        this.applicationPolicyService = applicationPolicyService;
     }
 
     public AdminDashboardDto getDashboard() {
@@ -166,6 +170,14 @@ public class AdminService {
                             app.getOfficerId());
                 })
                 .collect(java.util.stream.Collectors.toList());
+    }
+
+    public AdminApplicationLimitDto getApplicationLimit() {
+        return applicationPolicyService.getApplicationLimitSettings();
+    }
+
+    public AdminApplicationLimitDto updateApplicationLimit(boolean enabled) {
+        return applicationPolicyService.updateApplicationLimitEnabled(enabled);
     }
 
     private void applySchemeFields(Scheme scheme, AdminSchemeRequestDto request) {

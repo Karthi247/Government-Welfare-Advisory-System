@@ -25,6 +25,7 @@ SQL schemas are in the `database` folder at repo root:
 - `database/scheme.sql`
 - `database/scheme_details.sql`
 - `database/applications.sql`
+- `database/system_settings.sql`
 - `database/eligibility_history.sql`
 
 Create a database and run the SQL files in that order. If you already have data, apply the `ALTER TABLE` statements instead of re-creating tables.
@@ -87,6 +88,8 @@ X-User-Id: <numeric id>
 - `PUT /api/admin/user/{id}/status`
 - `PUT /api/admin/application/{id}/assign`
 - `GET /api/admin/applications`
+- `GET /api/admin/application-limit`
+- `PUT /api/admin/application-limit`
 
 ## CORS
 CORS is enabled for localhost. If you change frontend port, update `backend/src/main/java/com/project/welfare/config/WebConfig.java`.
