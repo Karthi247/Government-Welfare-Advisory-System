@@ -1,0 +1,70 @@
+﻿flowchart LR
+
+%% ================= ACTORS =================
+Citizen((Citizen))
+Officer((Welfare Officer))
+Admin((Administrator))
+Auditor((Auditor))
+
+%% ================= SYSTEM BOUNDARY =================
+subgraph System["Government Welfare Advisory System"]
+
+    %% -------- Citizen Use Cases --------
+    UC_Login([Register / Login])
+    UC_Check([Check Eligibility])
+    UC_ViewSchemes([View Eligible Schemes])
+    UC_Apply([Apply for Scheme])
+    UC_Upload([Upload Documents])
+    UC_Track([Track Application Status])
+    UC_UpdateProfile([Manage Profile])
+
+    %% -------- Officer Use Cases --------
+    UC_ViewAssigned([View Assigned Applications])
+    UC_Review([Review Application])
+    UC_RequestInfo([Request Additional Information])
+    UC_ApproveReject([Approve / Reject Application])
+    UC_UpdateStatus([Update Application Status])
+
+    %% -------- Admin Use Cases --------
+    UC_ManageUsers([Manage Users & Roles])
+    UC_ManageSchemes([Create / Update / Delete Schemes])
+    UC_ManageRules([Configure Eligibility Rules])
+    UC_AssignOfficer([Assign Officer to Application])
+    UC_RetrainModel([Retrain ML Model])
+    UC_SystemReports([Generate System Reports])
+
+    %% -------- Auditor Use Cases --------
+    UC_ViewLogs([View Audit Logs])
+    UC_AuditReports([Generate Audit Reports])
+
+end
+
+%% ================= RELATIONSHIPS =================
+
+Citizen --> UC_Login
+Citizen --> UC_Check
+Citizen --> UC_ViewSchemes
+Citizen --> UC_Apply
+Citizen --> UC_Upload
+Citizen --> UC_Track
+Citizen --> UC_UpdateProfile
+
+Officer --> UC_Login
+Officer --> UC_ViewAssigned
+Officer --> UC_Review
+Officer --> UC_RequestInfo
+Officer --> UC_ApproveReject
+Officer --> UC_UpdateStatus
+Officer --> UC_SystemReports
+
+Admin --> UC_Login
+Admin --> UC_ManageUsers
+Admin --> UC_ManageSchemes
+Admin --> UC_ManageRules
+Admin --> UC_AssignOfficer
+Admin --> UC_RetrainModel
+Admin --> UC_SystemReports
+
+Auditor --> UC_Login
+Auditor --> UC_ViewLogs
+Auditor --> UC_AuditReports

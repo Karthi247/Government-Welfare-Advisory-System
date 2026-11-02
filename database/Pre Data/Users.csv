@@ -1,0 +1,7 @@
+id,active,email,full_name,mobile,password,role
+1,1,karthiuser@welfare.com,Karthi,9597469159,12345,USER
+2,1,goddyuser@welfare.com,Goddy,6384484852,12345,USER
+3,1,dobbyuser@welfare.com,Dobby,9585884852,12345,USER
+4,1,officer1@welfare.com,Officer1,9988776655,09876,OFFICER
+5,1,officer2@welfare.com,Officer2,9911223344,09876,OFFICER
+6,1,admin1@welfare.com,Admin1,9955667788,admin123,ADMIN

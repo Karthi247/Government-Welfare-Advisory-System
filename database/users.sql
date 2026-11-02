@@ -1,0 +1,11 @@
+-- USE welfare_db;
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    full_name VARCHAR(100),
+    email VARCHAR(100),
+    mobile VARCHAR(15) UNIQUE NOT NULL,
+    password VARCHAR(255),
+    role ENUM('ADMIN','OFFICER','USER') DEFAULT 'USER',
+    active BOOLEAN DEFAULT TRUE
+);
